@@ -13,8 +13,9 @@ A simple library to run form field validation to check if user has correctly fil
 ```javascript
 var validate = new Validator({
   classname: "js-validate",        - this is optional, it will default to "js-validate" if not set
-  error: function(e,i){},          - run this function on error, handle your UI here.
-  success: function(e,i){}         - run this function on success, handle your UI here
+  error: function($elem){},          - run this function on error, handle your UI here.
+  success: function($elem){},        - run this function on success, handle your UI here
+  debug: true or false             - adds more detailed info to console.log 
 });
 ```
 
@@ -61,20 +62,14 @@ data-validate-type="select"
 ```
 
 #####Checkbox
-adding the classname will just check if checked or not
+just add the classname and it will make that checkbox required
 ```
 <input type="checkbox" class="js-validate" name="consent" />
 ```
 
 #####Radios
-adding the classname will just check if checked or not
+TBD
 ```
-<input type="radio" class="js-validate" name="consent" />
+<input type="radio" class="js-validate" name="blabla" />
 ```
 
-
-4. There are 4 areas where you can put custom functions on completeion, the are run in this order. 
-  - run on each item that has an error
-  - run just once on error
-  - run on each item that was correct
-  - run just once on success

@@ -1,26 +1,62 @@
 (function(window,document){
 
   function Validator (options){
-    // the constructor
     if (typeof options !== "object") {
       console.warn('Validator: options not defined');
       return false;
     }
-    options.classname = options.classname || "js-valdiate";
+    options.classname = options.classname || "js-validate";
     this.options = options;
     this.errors = 0;
-    this.init();
+    this.init(options.classname);
   }
 
-  Validator.prototype.init = function(){
+  Validator.prototype.init = function(cn){
     var self = this;
 
-    $("." + self.options.classname).each(function(i){
-      // if text, send to validateText
-      // if select, make sure an option with a value is chosen
-      // if checkbox, make sure it's selected
+    $("." + cn).each(function(i){
+      var tagname = $(this)[0].tagName.toLowerCase();
+
+      switch(tagname) {
+        case "input":
+          self.handleInput($(this));
+          break;
+        case "textarea":
+          self.handleSimple($(this));
+          break;
+        case "select":
+          self.handleSelect($(this));
+          break;
+        default:
+          console.warn('Validator: ' + tagname + ' element not supported');
+          break;
+      };
+
     });
 
+  };
+
+  Validator.prototype.handleInput = function($input) {
+    var input_index = 1;
+
+    if ($input[0].type !== "text") {
+      this.handleSimple($input);
+    } else {
+      var valType = $input.attr('data-validate-type');
+      var valVal = $input.val();
+      var valResult = this.validateText(valType, valVal);
+      this.handleResult($input, valResultm, input_index);
+    }
+
+  };
+
+  Validator.prototype.handleSelect = function($select) {
+
+  };
+
+  Validator.prototype.handleSimple = function($elem) {
+    // for TextAreas and Checkbox, maybe radio
+  
   };
 
   Validator.prototype.validateText = function(type, val) {
@@ -37,7 +73,7 @@
     switch(type) {
       case "name":
         validate_result = /[a-zA-Z\d''-'\s]+/.test(val);
-        break
+        break;
       case "phone":
         validate_result = /\(?\d{3}\)?-? *\d{3}-? *-?\d{4}/.test(val);
         break;
@@ -62,13 +98,27 @@
         // default to the "name regex"
         validate_result = /[a-zA-Z\d''-'\s]+/.test(val);
         break;
-    }
+    };
 
     if (!validate_result) {
       this.errors += 1;
     }
 
     return validate_result;
+  };
+
+  Validator.prototype.handleResult = function($elem, result) {
+    
+    if (!result && typeof options.error === 'function') {
+      options.error($elem);
+    
+    } else if (result && typeof options.success === 'function')
+      options.success($elem);
+
+    } else {
+      // do nothing
+    }
+
   };
 
   return Validator;
