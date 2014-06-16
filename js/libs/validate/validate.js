@@ -8,6 +8,7 @@
     options.classname = options.classname || "js-validate";
     options.success = options.success || null;
     options.error = options.error || null;
+    options.complete = options.complete || null;
     options.debug = options.debug || false;
 
     this.options = options;
@@ -60,22 +61,41 @@
       tag = $elem[0].tagName.toLowerCase();
     }
     
-
     switch (tag) {
+      case "select":
+        var $currentOption = $elem.find(":selected");
+        var dataAttr = $currentOption[0].getAttribute('data-validate-type');
+        isValid = ( dataAttr === null  ) ? true : false;
+        break;
       case "checkbox":
-        isValid = $elem.is(':checked');
+        var nameGroup = $elem.attr('name');
+        var $checked = $("input[name='"+nameGroup+"']:checked");
+        var dataAttr = $elem[0].getAttribute('data-validate-checkbox');
+        
+        if ( dataAttr !== null ) {
+          var total = parseFloat(dataAttr.replace(/[min|max]/g, ''));
+          var quantifier = dataAttr.replace(/[0-9]/g, '');
+
+          if (quantifier === "max") {
+            isValid = ($checked.length > 0 && $checked.length <= total) ? true : false;
+          } else if (quantifier === "min") {
+            isValid = ($checked.length >= total) ? true : false;
+          } else {
+            isValid = ($checked.length === total) ? true : false;
+          }
+
+        } else {
+          isValid = $elem.is(':checked');
+        }
+
         break;
       case "radio":
-        var currentRadioName = $elem.attr('name');
-        isValid = ( $("input[name='"+currentRadioName+"']").is(":checked") ) ? true : false;
+        var nameGroup = $elem.attr('name');
+        isValid = ( $("input[name='"+nameGroup+"']").is(":checked") ) ? true : false;
         break;
       case "textarea":
         isValid = ( !$.trim($elem.val()) ) ? false : true;
         break;
-      case "select":
-        var $currentOption = $elem.find(":selected");
-        var dataAttr = $currentOption.attr('data-validate-type');
-        isValid = ( typeof dataAttr === 'undefined' || dataAttr === false  ) ? false : true;
       default:
         console.warn('Validator: ' + tag + ' element is not supported');
         break;
@@ -128,8 +148,7 @@
           validate_result = /^(AA|AE|AP|AL|AK|AS|AZ|AR|CA|CO|CT|DE|DC|FM|FL|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MH|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|MP|OH|OK|OR|PW|PA|PR|RI|SC|SD|TN|TX|UT|VT|VI|VA|WA|WV|WI|WY)$/.test(val);
           break;
         default:
-          // default to the "name regex"
-          validate_result = /[a-zA-Z\d''-'\s]+/.test(_val);
+          console.warn('Validator: the data-validate-type you are using is not supported')
           break;
       };
 
@@ -143,26 +162,31 @@
   };
 
   Validator.prototype.handleResult = function($elem, result) {
+    $classname = $('.' + this.options.classname);
 
     if (!result && typeof this.options.error === 'function') {
       this.options.error($elem);
     } else if (result && typeof this.options.success === 'function') { 
-      this.options.success($elem);    
+      this.options.success($elem);
     } else {
       // do nothing for now
     }
 
+    if (this.index === $classname.length && typeof this.options.complete === "function" ) {
+      this.options.complete();
+    }
+
     // some debugging with nice formating in Chrome
-    if (this.options.debug && window.console) {
+    if (this.options.debug) {
       var currDebug =  {
-        tag: $elem[0].tagName,
+        tag: $elem[0].type || $elem[0].tagName,
         name: $elem.attr('name'),
         value: $elem.val(),
         pass: result
       };
 
       this.resultTable.push(currDebug);
-      if (this.index === $('.' + this.options.classname).length) {
+      if (this.index === $classname.length) {
         console.table(this.resultTable);
         console.log(this.errors + " errors found");
       }
@@ -173,20 +197,3 @@
   return window.Validator = Validator;
 
 })(window,document);
-
-$('#submit').click(function(e) {
-    e.preventDefault();
-    
-    var validate = new Validator({
-      classname: "js-validate",         
-      error: function($elem){
-          $elem.next('.error').show();
-      },         
-      success: function($elem){
-          $elem.next('.error').hide();
-      },       
-      debug: true
-    });
-});
-
-console.clear();
