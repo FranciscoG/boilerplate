@@ -12,10 +12,10 @@ A simple library to run form field validation to check if user has correctly fil
 
 ```javascript
 var validate = new Validator({
-  classname: "js-validate",        - this is optional, it will default to "js-validate" if not set
-  error: function($elem){},          - run this function on error, handle your UI here.
-  success: function($elem){},        - run this function on success, handle your UI here
-  debug: true or false             - adds more detailed info to console.log 
+  classname: "js-validate",         // this is optional, it will default to "js-validate" if not set
+  error: function($elem){},         // run this function on error, handle your UI here.
+  success: function($elem){},       // run this function on success, handle your UI here
+  debug: true or false              // adds more detailed info to console.log 
 });
 ```
 
@@ -34,13 +34,11 @@ here are the different text validation types
   data-validate-type="phone"  
   data-validate-type="email"  
   data-validate-type="zip"  
-  data-validate-type="zip4"   - allows the optional 4 digits
-  
-  data-validate-type="num"    - for fields that should only have numbers
-  
+  data-validate-type="zip4"   - allows the optional 4 digits  
+  data-validate-type="num"    - for fields that should only have numbers  
   data-validate-type="state"  - in case you decide to use a text input instead of a select for US states
 
-#####Textareas and Checkboxes
+#####Textareas
 
 Adding the classname to a textarea only checks if it is empty or not. 
 
@@ -49,27 +47,31 @@ Adding the classname to a textarea only checks if it is empty or not.
 ```
 
 #####Selects
-This one is slightly more tricky.  If you require that a user choose an option other than the default selected option, then you put this data attribute on that default selected option:  
+This one is slightly different. If you require that a user must select an option then you put the data attribute on the default option that shows on page load.  If they leave it on that option it will show an error.
 
-data-validate-type="select"
+data-validate-type="ignore"  
+actually that text can be anything, the code just looks for the existence of the data attribute
 
 ```
 <select class="js-validate">
-  <option value="none" selected="selected" data-validate-type="select">select</option>
+  <option value="none" selected="selected" data-validate-type="ignore">select</option>
   <option value="1">something<option>
   <option value="2">something<option>
 </select>
 ```
 
 #####Checkbox
-just add the classname and it will make that checkbox required
+just add the classname and it will make that checkbox required  
+tbd: multiple checkboxes with the same name
 ```
-<input type="checkbox" class="js-validate" name="consent" />
+<input type="checkbox" class="js-validate" name="consent" /> I agree
 ```
 
 #####Radios
-TBD
+When you added the classname it'll just make sure that one of the radios with the same name has been selected  
 ```
-<input type="radio" class="js-validate" name="blabla" />
+<input type="radio" class="js-validate" name="options" /> Red
+<input type="radio" class="js-validate" name="options" /> Blue
+<input type="radio" class="js-validate" name="options" /> Green
 ```
 
