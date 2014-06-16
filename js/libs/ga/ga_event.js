@@ -1,42 +1,10 @@
-/*
-Google Analytics event tagging
-https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide
-
-dependency:  jQuery
-
-This script will load the google analytics library for you and then attach click handlers for event tracking
-
-usage:
-
-in your HTML:
-1. add the css classname "ga_event" to any element you want to track a click on
-2. add data attributes to the html element for each part of the trackEvent 
-
-data-ga-category        - required, any string
-data-ga-action          - required, any string
-
-data-ga-label           - optional, any string
-data-ga-value           - optional, must only be a number like this:  data-value="55"
-data-ga-non-interaction - optional, only true or false, default is false so only use if true like this:  data-non-interaction="true"
-
-for easy copy and paste:
-class="ga_event" data-ga-category="" data-ga-action="" data-ga-label="" data-ga-value="" data-ga-non-interaction="true"
-
-example:
-<a href="/something" class="ga_event" data-ga-category="Account" data-ga-action="click" data-ga-label="User Account">User Account</a>
-
-in your js:
-1. include this file after you include jQuery but before your main JS file
-2. in your main js you call the init function:  
-GA_event.init('UA-XXXXXXX-XX');
-GA_event.init('UA-XXXXXXX-XX', true);  <-- if you have dynamically added content
-*/
-
 var GA_event = (function () {
+
+    var whichVersion = "ga.js";
 
     var checkDatas = function (e) {
         var link = $(e.currentTarget);
-        var eventArray = ['_trackEvent'];
+        eventArray = [];
 
         var ga_cat = link.attr('data-ga-category') || false;
         var ga_action = link.attr('data-ga-action') || false;
@@ -54,13 +22,40 @@ var GA_event = (function () {
 
         if (ga_non !== null && ga_non === "true") {
             eventArray.push(true);
+        } else {
+            eventArray.push(false);
         }
 
-        _gaq.push(eventArray);
+        sendData(eventArray);
 
     };
 
-    var addGAlibrary = function (UA) {
+    var sendData = function(dataArray) {
+        
+        if (whichVersion === "ga.js") {
+            var oldGAarray = ['_trackEvent'];
+            // the old GA.js way
+            // https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide
+            // _gaq.push(['_trackEvent', 'category', 'action', 'label', value, non-interaction ]);
+            oldGAarray.push(dataArray);
+            _gaq.push(oldGAarray);
+
+        } else {
+            // The new analytics JS way
+            // https://developers.google.com/analytics/devguides/collection/analyticsjs/events
+            // ga('send', 'event', 'category', 'action', value, {'nonInteraction': 1});
+            ga('send', {
+              'hitType': 'event',
+              'eventCategory': dataArray[0],
+              'eventAction': dataArray[1],
+              'eventLabel': dataArray[2],
+              'eventValue': dataArray[3],
+              'nonInteraction' : dataArray[4]
+            });
+        }
+    };
+
+    var addOldGAlibrary = function (UA) {
         // usign the older ga tracking library: https://developers.google.com/analytics/devguides/collection/gajs/
 
         window._gaq = window._gaq || [];
@@ -73,15 +68,35 @@ var GA_event = (function () {
 
     };
 
-    var init = function (UA, hasDynamic) {
+    var addNewGALibrary = function(UA) {
+        // https://developers.google.com/analytics/devguides/collection/analyticsjs/
+        
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', UA, 'auto');
+        ga('send', 'pageview');
+
+    };
+
+    var init = function (UA, version, hasDynamic) {
         var _UA = UA || false;
+        whichVersion = version || "ga.js";
         var _d = hasDynamic || false;
 
         if (!_UA) {
             console.warn("GA_event: missing UA account ID");
             return false;
         }
-        addGAlibrary(UA);
+
+        if (whichVersion === "ga.js") {
+            addOldGAlibrary(_UA);
+        } else {
+            addNewGALibrary(_UA)
+        }
+        
 
         if (_d) {
             // since we add the click event on page load any links that are dynamically added after page load won't get the click event attached
