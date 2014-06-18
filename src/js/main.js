@@ -9,7 +9,7 @@ var MySite = new TinyRouter({
   },
 
   home: function() {
-    // do stuff specific to home page
+    
   }
 
 });

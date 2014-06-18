@@ -1,23 +1,10 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var stylus = require('gulp-stylus');
+var nib = require('nib');
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 
-
-/**********************************************
- * Helpers
- */
-
-function timestamp() {
-  var currentdate = new Date();
-  var datetime = "Last update: " + currentdate.getDate() + "/" +
-    (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear() + " @ " +
-    currentdate.getHours() + ":" +
-    currentdate.getMinutes() + ":" +
-    currentdate.getSeconds();
-  return datetime;
-}
 
 /**********************************************
  * Stylus to CSS 
@@ -26,7 +13,7 @@ function timestamp() {
 
 gulp.task('stylus', function () {
   gulp.src('./src/stylus/app.styl')
-    .pipe(stylus())
+    .pipe(stylus({use: [nib()]}))
     .pipe(gulp.dest('./css'));
 });
 

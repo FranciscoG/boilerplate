@@ -8,7 +8,7 @@ A simple library to run form field validation to check if user has correctly fil
 1. It <b>does not protect against XSS</b>, that should be handled on the server
 2. It does not handle UI, you take care of that in the error/success options
 
-Test it out here: <a href="http://jsfiddle.net/87rdD/9/">http://jsfiddle.net/87rdD/9/</a>
+Test it out here: <a href="http://jsfiddle.net/87rdD/10/">http://jsfiddle.net/87rdD/10/</a>
 
 ####in your JS:
 
@@ -17,7 +17,7 @@ var validate = new Validator({
   classname: "js-validate",         // this is optional, it will default to "js-validate" if not set
   error: function($elem){},         // run this function on each error, handle your UI here.
   success: function($elem){},       // run this function on each success, handle your UI here
-  complete: function(){},           // runs this function only once at the very end
+  complete: function(errors){},     // runs this function only once at the very end, errors parameter will be the number of errors
   debug: true or false              // adds more detailed info to console.log 
 });
 ```
@@ -36,7 +36,7 @@ here are the different text validation types
 ```
   data-validate-type="name"  
   data-validate-type="phone"  
-  data-validate-type="email"  
+  data-validate-type="email"  - matches typical emails allowed by the major providers  
   data-validate-type="zip"  
   data-validate-type="zip4"   - allows the optional 4 digits  
   data-validate-type="num"    - for fields that should only have numbers  

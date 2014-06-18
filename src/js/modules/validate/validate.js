@@ -1,27 +1,37 @@
 (function(window,document){
 
+  var defaults = {
+    classname: "js-validate",
+    debug: false
+  };
+
   function Validator (options){
     if (typeof options !== "object") {
       console.warn('Validator: options not defined');
       return false;
     }
-    options.classname = options.classname || "js-validate";
+
+    options.classname = options.classname || defaults.classname;
     options.success = options.success || null;
     options.error = options.error || null;
     options.complete = options.complete || null;
-    options.debug = options.debug || false;
+    options.debug = options.debug || defaults.debug;
 
     this.options = options;
     this.errors = 0;
     this.index = 0;
     this.resultTable = [];
-    this.init(options.classname);
+
+    // cache the selector
+    this.$classname = $("." + options.classname);
+    
+    this.init();
   }
 
-  Validator.prototype.init = function(cn){
+  Validator.prototype.init = function(){
     var self = this;
 
-    $("." + cn).each(function(i){
+    this.$classname.each(function(i){
       self.$elem = $(this);
 
       var tagname = $(this)[0].tagName.toLowerCase();
@@ -162,7 +172,6 @@
   };
 
   Validator.prototype.handleResult = function($elem, result) {
-    var $classname = $('.' + this.options.classname);
 
     if (!result && typeof this.options.error === 'function') {
       this.options.error($elem);
@@ -172,8 +181,8 @@
       // do nothing for now
     }
 
-    if (this.index === $classname.length && typeof this.options.complete === "function" ) {
-      this.options.complete();
+    if (this.index === this.$classname.length && typeof this.options.complete === "function" ) {
+      this.options.complete(this.errors);
     }
 
     // some debugging with nice formating in Chrome
@@ -186,7 +195,7 @@
       };
 
       this.resultTable.push(currDebug);
-      if (this.index === $classname.length) {
+      if (this.index === this.$classname.length) {
         console.table(this.resultTable);
         console.log(this.errors + " errors found");
       }
