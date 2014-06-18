@@ -1,4 +1,4 @@
-var MySite = new tinyRouter({
+var MySite = new TinyRouter({
 
   universal: function() {
 

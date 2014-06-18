@@ -20,6 +20,9 @@
   "homepage": "https://github.com/FranciscoG/boilerplate",
   "devDependencies": {
     "gulp": "^3.8.0",
-    "gulp-stylus": "^1.0.2"
+    "gulp-concat": "^2.2.0",
+    "gulp-jshint": "^1.6.3",
+    "gulp-stylus": "^1.0.2",
+    "jshint-stylish": "^0.2.0"
   }
 }

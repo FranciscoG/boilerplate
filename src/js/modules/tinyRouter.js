@@ -14,7 +14,7 @@
  * http://www.paulirish.com/2009/markup-based-unobtrusive-comprehensive-dom-ready-execution/
  */
 
-var tinyRouter = (function() {
+var TinyRouter = (function() {
 
   function Router(info) {
     this.methods = info;

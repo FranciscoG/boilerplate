@@ -53,7 +53,7 @@
 
   Validator.prototype.handleTheRest = function($elem, fromInput) {
     var isValid = false;
-    var tag;
+    var tag, dataAttr, nameGroup;
 
     if (fromInput) {
       tag = $elem[0].type;
@@ -64,13 +64,13 @@
     switch (tag) {
       case "select":
         var $currentOption = $elem.find(":selected");
-        var dataAttr = $currentOption[0].getAttribute('data-validate-type');
+        dataAttr = $currentOption[0].getAttribute('data-validate-type');
         isValid = ( dataAttr === null  ) ? true : false;
         break;
       case "checkbox":
-        var nameGroup = $elem.attr('name');
+        nameGroup = $elem.attr('name');
         var $checked = $("input[name='"+nameGroup+"']:checked");
-        var dataAttr = $elem[0].getAttribute('data-validate-checkbox');
+        dataAttr = $elem[0].getAttribute('data-validate-checkbox');
         
         if ( dataAttr !== null ) {
           var total = parseFloat(dataAttr.replace(/[min|max]/g, ''));
@@ -90,7 +90,7 @@
 
         break;
       case "radio":
-        var nameGroup = $elem.attr('name');
+        nameGroup = $elem.attr('name');
         isValid = ( $("input[name='"+nameGroup+"']").is(":checked") ) ? true : false;
         break;
       case "textarea":
@@ -99,7 +99,7 @@
       default:
         console.warn('Validator: ' + tag + ' element is not supported');
         break;
-    };
+    }
 
     if (!isValid) {
       this.errors += 1;
@@ -148,9 +148,9 @@
           validate_result = /^(AA|AE|AP|AL|AK|AS|AZ|AR|CA|CO|CT|DE|DC|FM|FL|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MH|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|MP|OH|OK|OR|PW|PA|PR|RI|SC|SD|TN|TX|UT|VT|VI|VA|WA|WV|WI|WY)$/.test(val);
           break;
         default:
-          console.warn('Validator: the data-validate-type you are using is not supported')
+          console.warn('Validator: the data-validate-type you are using is not supported');
           break;
-      };
+      }
 
     }
 
@@ -162,7 +162,7 @@
   };
 
   Validator.prototype.handleResult = function($elem, result) {
-    $classname = $('.' + this.options.classname);
+    var $classname = $('.' + this.options.classname);
 
     if (!result && typeof this.options.error === 'function') {
       this.options.error($elem);
