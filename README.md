@@ -24,7 +24,7 @@ tbd: either requireJS or browserify for managing dependecies and keeping JS clea
 
 2. Open OS X's Terminal program, or install [iTerm2](http://www.iterm2.com/#/section/home) which is better than Terminal
 
-3. Open iTerm2 or Terminal, go to the root of the boilerplate directory and do the following: 
+3. go to the root of the boilerplate directory and do the following: 
 
 4. run this command: ```npm install -g gulp```, you might need to use "sudo"
 
