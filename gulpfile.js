@@ -14,7 +14,7 @@ var stylish = require('jshint-stylish');
 gulp.task('stylus', function () {
   gulp.src('./src/stylus/app.styl')
     .pipe(stylus({use: [nib()]}))
-    .pipe(gulp.dest('./css'));
+    .pipe(gulp.dest('./app/css'));
 });
 
 
@@ -47,7 +47,7 @@ gulp.task('lint_main', function() {
 gulp.task('js', ['lint_modules', 'lint_main'], function() {
   gulp.src(all_scripts)
     .pipe(concat('site.js'))
-    .pipe(gulp.dest('./js'));
+    .pipe(gulp.dest('./app/js'));
 });
 
 gulp.task('watch', function(){

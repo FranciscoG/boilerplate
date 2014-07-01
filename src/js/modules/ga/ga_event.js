@@ -90,7 +90,7 @@ var GA_event = (function () {
 
     /**
      * @param  {string}  UA         the UA account number
-     * @param  {string}  version    "ga.js" or "analytics.js" , optional, which version of the analytics library to use
+     * @param  {string}  version    "ga.js" or "analytics.js" , optional, which version of the analytics library to use.  defaults to "ga.js"
      * @param  {Boolean} hasDynamic true if there are dynamically generated links in the site 
      */
     var init = function (UA, version, hasDynamic) {
