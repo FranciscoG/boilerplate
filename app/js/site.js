@@ -10311,50 +10311,54 @@ return jQuery;
 },{}],2:[function(require,module,exports){
 var ga_event = require('../js/modules/ga/ga_event.js');
 var TinyRouter = require('../js/modules/TinyRouter.js');
+var plugins = require('../js/modules/plugins.js');
 var $ = require('jquery');
-var validate = require('../js/modules/validate/validate.js');
+var Validate = require('../js/modules/validate/validate.js');
 
 var MySite = new TinyRouter({
 
-  universal: function() {
+    universal: function() {
+        plugins();
 
-    $('html').removeClass('no-js');
+        $('html').removeClass('no-js');
 
-    // load classic GA library
-    ga_event('UA-XXXXXXX-XX', "ga.js");
-  },
+        // load classic GA library
+        ga_event('UA-XXXXXXX-XX', "ga.js");
+    },
 
-  home: function() {
-    // do something on the home page
-    console.log('this is the home page');
-  },
+    home: function() {
+        // do something on the home page
+        console.log('this is the home page');
+    },
 
-  form_test: function() {
-    $('#submit').click(function(e) {
-      e.preventDefault();
+    testpage: function() {
 
-      validate({
-        classname: "js-validate",
-        error: function($elem) {
-          $elem.siblings('.error').show();
-        },
-        success: function($elem) {
-          $elem.siblings('.error').hide();
-        },
-        complete: function(errors) {
-          if (errors === 0) {
-            $('#complete').hide();
-          } else {
-            $('#complete').show();
-          }
-        },
-        debug: true
-      });
-    });
-  }
+        $('#submit').click(function(e) {
+            e.preventDefault();
+
+            var validateme = new Validate({
+                classname: "js-validate",
+                error: function($elem) {
+                    $elem.siblings('.error').show();
+                },
+                success: function($elem) {
+                    $elem.siblings('.error').hide();
+                },
+                complete: function(errors) {
+                    if (errors === 0) {
+                        $('#complete').hide();
+                    } else {
+                        $('#complete').show();
+                    }
+                },
+                debug: true
+            });
+        });
+
+    }
 
 });
-},{"../js/modules/TinyRouter.js":3,"../js/modules/ga/ga_event.js":4,"../js/modules/validate/validate.js":5,"jquery":1}],3:[function(require,module,exports){
+},{"../js/modules/TinyRouter.js":3,"../js/modules/ga/ga_event.js":4,"../js/modules/plugins.js":5,"../js/modules/validate/validate.js":6,"jquery":1}],3:[function(require,module,exports){
 /*  
  * tinyRouter.js
  *
@@ -10373,27 +10377,27 @@ var MySite = new TinyRouter({
 
 
 module.exports = function(info) {
-  this.methods = info;
+    this.methods = info;
 
-  var route = document.body.getAttribute('data-route'); //supporting back to IE8, why not
+    var route = document.body.getAttribute('data-route'); //supporting back to IE8, why not
 
-  if (route === null) {
-    return false; // no route so we exit quietly
-  }
+    if (route === null) {
+        return false; // no route so we exit quietly
+    }
 
-  if (route === 'universal') {
-    throw new Error("universal is a reserved name, don't use it");
-  }
+    if (route === 'universal') {
+        throw new Error("universal is a reserved name, don't use it");
+    }
 
-  if (typeof this.methods.universal !== 'undefined') {
-    // always run what's in 'universal' before other routes
-    this.methods.universal();
-  }
+    if (typeof this.methods.universal !== 'undefined') {
+        // always run what's in 'universal' before other routes
+        this.methods.universal();
+    }
 
-  var execRoute = this.methods[route];
-  if (typeof execRoute === 'function') {
-    execRoute();
-  }
+    var execRoute = this.methods[route];
+    if (typeof execRoute === 'function') {
+        execRoute();
+    }
 
 };
 
@@ -10407,7 +10411,11 @@ Step 1:  on your page you add a 'data-route' attribute to your body tag like thi
  
 Step 2:  Create your Route functions, tinyRouter takes an Object Literal as its only parameter
 
-var yourMainModule = new tinyRouter({
+// require it
+var TinyRouter = require('../js/modules/TinyRouter.js');
+
+// use it
+var yourMainModule = new TinyRouter({
   
   universal: function() {
     // this is an optional route (but a reserved name, so don't use it in data-route)
@@ -10427,91 +10435,92 @@ var whichVersion = "ga.js";
 var $ = require('jquery');
 
 var sendData = function(dataArray) {
+    //console.log(dataArray);
 
-  if (whichVersion === "ga.js") {
-    var oldGAarray = ['_trackEvent'];
-    // the old GA.js way
-    // https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide
-    // _gaq.push(['_trackEvent', 'category', 'action', 'label', value, non-interaction ]);
-    oldGAarray.push(dataArray);
-    _gaq.push(oldGAarray);
+    if (whichVersion === "ga.js") {
+        var oldGAarray = ['_trackEvent'];
+        // the old GA.js way
+        // https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide
+        // _gaq.push(['_trackEvent', 'category', 'action', 'label', value, non-interaction ]);
+        oldGAarray.push(dataArray);
+        _gaq.push(oldGAarray);
 
-  } else {
-    // The new analytics JS way
-    // https://developers.google.com/analytics/devguides/collection/analyticsjs/events
-    // ga('send', 'event', 'category', 'action', value, {'nonInteraction': 1});
-    ga('send', {
-      'hitType': 'event',
-      'eventCategory': dataArray[0],
-      'eventAction': dataArray[1],
-      'eventLabel': dataArray[2],
-      'eventValue': dataArray[3],
-      'nonInteraction': dataArray[4]
-    });
-  }
+    } else {
+        // The new analytics JS way
+        // https://developers.google.com/analytics/devguides/collection/analyticsjs/events
+        // ga('send', 'event', 'category', 'action', value, {'nonInteraction': 1});
+        ga('send', {
+            'hitType': 'event',
+            'eventCategory': dataArray[0],
+            'eventAction': dataArray[1],
+            'eventLabel': dataArray[2],
+            'eventValue': dataArray[3],
+            'nonInteraction': dataArray[4]
+        });
+    }
 };
 
 var checkDatas = function(e) {
-  var link = $(e.currentTarget);
-  var eventArray = [];
+    var link = $(e.currentTarget);
+    var eventArray = [];
 
-  var ga_cat = link.attr('data-ga-category') || false;
-  var ga_action = link.attr('data-ga-action') || false;
+    var ga_cat = link.attr('data-ga-category') || false;
+    var ga_action = link.attr('data-ga-action') || false;
 
-  var ga_label = link.attr('data-ga-label') || null;
-  var ga_value = link.attr('data-ga-value') || null;
-  var ga_non = link.attr('data-ga-non-interaction') || null;
+    var ga_label = link.attr('data-ga-label') || null;
+    var ga_value = link.attr('data-ga-value') || null;
+    var ga_non = link.attr('data-ga-non-interaction') || null;
 
-  if (!ga_cat || !ga_action) {
-    console.warn('GA event tags require BOTH a category and an action');
-    return false;
-  } else {
-    eventArray.push(ga_cat, ga_action, ga_label, parseFloat(ga_value) || null);
-  }
+    if (!ga_cat || !ga_action) {
+        console.warn('GA event tags require BOTH a category and an action');
+        return false;
+    } else {
+        eventArray.push(ga_cat, ga_action, ga_label, parseFloat(ga_value) || null);
+    }
 
-  if (ga_non !== null && ga_non === "true") {
-    eventArray.push(true);
-  } else {
-    eventArray.push(false);
-  }
+    if (ga_non !== null && ga_non === "true") {
+        eventArray.push(true);
+    } else {
+        eventArray.push(false);
+    }
 
-  sendData(eventArray);
+    sendData(eventArray);
 
 };
 
 var addOldGAlibrary = function(UA) {
-  // usign the older ga tracking library: https://developers.google.com/analytics/devguides/collection/gajs/
+    // usign the older ga tracking library: https://developers.google.com/analytics/devguides/collection/gajs/
 
-  window._gaq = window._gaq || [];
-  _gaq.push(['_setAccount', UA]);
-  _gaq.push(['_trackPageview']);
+    window._gaq = window._gaq || [];
+    _gaq.push(['_setAccount', UA]);
+    _gaq.push(['_trackPageview']);
 
-  var ga = document.createElement('script');
-  ga.type = 'text/javascript';
-  ga.async = true;
-  ga.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0];
-  s.parentNode.insertBefore(ga, s);
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
 
 };
 
 var addNewGALibrary = function(UA) {
-  // https://developers.google.com/analytics/devguides/collection/analyticsjs/
+    // https://developers.google.com/analytics/devguides/collection/analyticsjs/
 
-  (function(i, s, o, g, r, a, m) {
-    i['GoogleAnalyticsObject'] = r;
-    i[r] = i[r] || function() {
-      (i[r].q = i[r].q || []).push(arguments);
-    }, i[r].l = 1 * new Date();
-    a = s.createElement(o),
-    m = s.getElementsByTagName(o)[0];
-    a.async = 1;
-    a.src = g;
-    m.parentNode.insertBefore(a, m);
-  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments);
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-  ga('create', UA, 'auto');
-  ga('send', 'pageview');
+    ga('create', UA, 'auto');
+    ga('send', 'pageview');
 
 };
 
@@ -10522,49 +10531,74 @@ var addNewGALibrary = function(UA) {
  * @param  {Boolean} hasDynamic true if there are dynamically generated links in the site
  */
 module.exports = function(UA, version, hasDynamic) {
-  var _UA = UA || false;
-  whichVersion = version || "ga.js";
-  var _d = hasDynamic || false;
+    var _UA = UA || false;
+    whichVersion = version || "ga.js";
+    var _d = hasDynamic || false;
 
-  if (!_UA) {
-    console.warn("GA_event: missing UA account ID");
-    return false;
-  }
+    if (!_UA) {
+        console.warn("GA_event: missing UA account ID");
+        return false;
+    }
 
-  if (whichVersion === "ga.js") {
-    addOldGAlibrary(_UA);
-  } else {
-    addNewGALibrary(_UA);
-  }
+    if (whichVersion === "ga.js") {
+        addOldGAlibrary(_UA);
+    } else {
+        addNewGALibrary(_UA);
+    }
 
 
-  if (_d) {
-    // since we add the click event on page load any links that are dynamically added after page load won't get the click event attached
-    // so we use this method instead.  But we only want to use this if we NEED to, because it adds a click event to the entire <body> and
-    // then every time you click on anything is traverses down the DOM to check if that element has the ga_event class which is a lot of work
-    $('body').on('click', '.ga_event', function(e) {
-      checkDatas(e);
-    });
-  } else {
-    $('.ga_event').on('click', function(e) {
-      checkDatas(e);
-    });
-  }
+    if (_d) {
+        // since we add the click event on page load any links that are dynamically added after page load won't get the click event attached
+        // so we use this method instead.  But we only want to use this if we NEED to, because it adds a click event to the entire <body> and
+        // then every time you click on anything is traverses down the DOM to check if that element has the ga_event class which is a lot of work
+        $('body').on('click', '.ga_event', function(e) {
+            checkDatas(e);
+        });
+    } else {
+        $('.ga_event').on('click', function(e) {
+            checkDatas(e);
+        });
+    }
 };
 },{"jquery":1}],5:[function(require,module,exports){
+var noConsole = function() {
+    // Avoid `console` errors in browsers that lack a console.
+    var method;
+    var noop = function() {};
+    var methods = [
+        'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
+        'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
+        'markTimeline', 'profile', 'profileEnd', 'table', 'time', 'timeEnd',
+        'timeStamp', 'trace', 'warn'
+    ];
+    var length = methods.length;
+    var console = (window.console = window.console || {});
+
+    while (length--) {
+        method = methods[length];
+
+        // Only stub undefined methods.
+        if (!console[method]) {
+            console[method] = noop;
+        }
+    }
+};
+
+module.exports = function() {
+    noConsole();
+};
+},{}],6:[function(require,module,exports){
 var $ = require('jquery');
 
-var Validate = function() {
-
-  var defaults = {
+var defaults = {
     classname: "js-validate",
     debug: false
-  };
+};
 
-  return function(options) {
+function Validate(options) {
     if (typeof options !== "object") {
-      console.warn('Validator: options not defined');
-      return false;
+        console.warn('Validator: options not defined');
+        return false;
     }
 
     options.classname = options.classname || defaults.classname;
@@ -10584,178 +10618,176 @@ var Validate = function() {
     var self = this;
 
     this.$classname.each(function(i) {
-      self.$elem = $(this);
+        self.$elem = $(this);
 
-      var tagname = $(this)[0].tagName.toLowerCase();
+        var tagname = $(this)[0].tagName.toLowerCase();
 
-      self.index += 1; // this will match .length in the end
+        self.index += 1; // this will match .length in the end
 
-      if (tagname === "input") {
-        self.handleInput($(this));
-      } else {
-        self.handleTheRest($(this), false);
-      }
+        if (tagname === "input") {
+            self.handleInput($(this));
+        } else {
+            self.handleTheRest($(this), false);
+        }
 
     });
+}
 
-    this.handleInput = function($input) {
+Validate.prototype.handleInput = function($input) {
 
-      if ($input[0].type !== "text") {
+    if ($input[0].type !== "text") {
         this.handleTheRest($input, true);
-      } else {
+    } else {
         var valType = $input.attr('data-validate-type');
         var valVal = $input.val();
         var valResult = this.validateText(valType, valVal);
         this.handleResult($input, valResult);
-      }
+    }
 
-    };
+};
 
-    this.handleTheRest = function($elem, fromInput) {
-      var isValid = false;
-      var tag, dataAttr, nameGroup;
+Validate.prototype.handleTheRest = function($elem, fromInput) {
+    var isValid = false;
+    var tag, dataAttr, nameGroup;
 
-      if (fromInput) {
+    if (fromInput) {
         tag = $elem[0].type;
-      } else {
+    } else {
         tag = $elem[0].tagName.toLowerCase();
-      }
+    }
 
-      switch (tag) {
+    switch (tag) {
         case "select":
-          var $currentOption = $elem.find(":selected");
-          dataAttr = $currentOption[0].getAttribute('data-validate-type');
-          isValid = (dataAttr === null) ? true : false;
-          break;
+            var $currentOption = $elem.find(":selected");
+            dataAttr = $currentOption[0].getAttribute('data-validate-type');
+            isValid = (dataAttr === null) ? true : false;
+            break;
         case "checkbox":
-          nameGroup = $elem.attr('name');
-          var $checked = $("input[name='" + nameGroup + "']:checked");
-          dataAttr = $elem[0].getAttribute('data-validate-checkbox');
+            nameGroup = $elem.attr('name');
+            var $checked = $("input[name='" + nameGroup + "']:checked");
+            dataAttr = $elem[0].getAttribute('data-validate-checkbox');
 
-          if (dataAttr !== null) {
-            var total = parseFloat(dataAttr.replace(/[min|max]/g, ''));
-            var quantifier = dataAttr.replace(/[0-9]/g, '');
+            if (dataAttr !== null) {
+                var total = parseFloat(dataAttr.replace(/[min|max]/g, ''));
+                var quantifier = dataAttr.replace(/[0-9]/g, '');
 
-            if (quantifier === "max") {
-              isValid = ($checked.length > 0 && $checked.length <= total) ? true : false;
-            } else if (quantifier === "min") {
-              isValid = ($checked.length >= total) ? true : false;
+                if (quantifier === "max") {
+                    isValid = ($checked.length > 0 && $checked.length <= total) ? true : false;
+                } else if (quantifier === "min") {
+                    isValid = ($checked.length >= total) ? true : false;
+                } else {
+                    isValid = ($checked.length === total) ? true : false;
+                }
+
             } else {
-              isValid = ($checked.length === total) ? true : false;
+                isValid = $elem.is(':checked');
             }
 
-          } else {
-            isValid = $elem.is(':checked');
-          }
-
-          break;
+            break;
         case "radio":
-          nameGroup = $elem.attr('name');
-          isValid = ($("input[name='" + nameGroup + "']").is(":checked")) ? true : false;
-          break;
+            nameGroup = $elem.attr('name');
+            isValid = ($("input[name='" + nameGroup + "']").is(":checked")) ? true : false;
+            break;
         case "textarea":
-          isValid = (!$.trim($elem.val())) ? false : true;
-          break;
+            isValid = (!$.trim($elem.val())) ? false : true;
+            break;
         default:
-          console.warn('Validator: ' + tag + ' element is not supported');
-          break;
-      }
+            console.warn('Validator: ' + tag + ' element is not supported');
+            break;
+    }
 
-      if (!isValid) {
+    if (!isValid) {
         this.errors += 1;
-      }
+    }
 
-      this.handleResult($elem, isValid);
-    };
+    this.handleResult($elem, isValid);
+};
 
-    this.validateText = function(type, val) {
-      var _type = type || false;
-      var _val = val || "";
-      var validate_result = false; // true is good, means it passed
+Validate.prototype.validateText = function(type, val) {
+    var _type = type || false;
+    var _val = val || "";
+    var validate_result = false; // true is good, means it passed
 
-      if (!_type) {
+    if (!_type) {
         console.warn('Validator.validateText: type is undefined');
         return false;
-      }
+    }
 
-      if (_val === "") {
+    if (_val === "") {
         // for blank entries we skip the switch and just set it to false
         validate_result = false;
-      } else {
+    } else {
 
         switch (_type) {
-          case "name":
-            validate_result = /[a-zA-Z\d''-'\s]+/.test(_val);
-            break;
-          case "phone":
-            validate_result = /\(?\d{3}\)?-? *\d{3}-? *-?\d{4}/.test(_val);
-            break;
-          case "email":
-            validate_result = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(_val);
-            break;
-          case "zip":
-            validate_result = /^\d{5}$/.test(_val);
-            break;
-          case "zip4":
-            // source: https://www.owasp.org/index.php/Input_Validation_Cheat_Sheet#White_List_Regular_Expression_Examples
-            validate_result = /^\d{5}(-\d{4})?$/.test(_val);
-            break;
-          case "num":
-            validate_result = /^\d+$/.test(_val);
-            break;
-          case "state":
-            // source: https://www.owasp.org/index.php/Input_Validation_Cheat_Sheet#White_List_Regular_Expression_Examples
-            validate_result = /^(AA|AE|AP|AL|AK|AS|AZ|AR|CA|CO|CT|DE|DC|FM|FL|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MH|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|MP|OH|OK|OR|PW|PA|PR|RI|SC|SD|TN|TX|UT|VT|VI|VA|WA|WV|WI|WY)$/.test(val);
-            break;
-          default:
-            console.warn('Validator: the data-validate-type you are using is not supported');
-            break;
+            case "name":
+                validate_result = /[a-zA-Z\d''-'\s]+/.test(_val);
+                break;
+            case "phone":
+                validate_result = /\(?\d{3}\)?-? *\d{3}-? *-?\d{4}/.test(_val);
+                break;
+            case "email":
+                validate_result = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(_val);
+                break;
+            case "zip":
+                validate_result = /^\d{5}$/.test(_val);
+                break;
+            case "zip4":
+                // source: https://www.owasp.org/index.php/Input_Validation_Cheat_Sheet#White_List_Regular_Expression_Examples
+                validate_result = /^\d{5}(-\d{4})?$/.test(_val);
+                break;
+            case "num":
+                validate_result = /^\d+$/.test(_val);
+                break;
+            case "state":
+                // source: https://www.owasp.org/index.php/Input_Validation_Cheat_Sheet#White_List_Regular_Expression_Examples
+                validate_result = /^(AA|AE|AP|AL|AK|AS|AZ|AR|CA|CO|CT|DE|DC|FM|FL|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MH|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|MP|OH|OK|OR|PW|PA|PR|RI|SC|SD|TN|TX|UT|VT|VI|VA|WA|WV|WI|WY)$/.test(val);
+                break;
+            default:
+                console.warn('Validator: the data-validate-type you are using is not supported');
+                break;
         }
 
-      }
+    }
 
-      if (!validate_result) {
+    if (!validate_result) {
         this.errors += 1;
-      }
+    }
 
-      return validate_result;
-    };
+    return validate_result;
+};
 
-    this.handleResult = function($elem, result) {
+Validate.prototype.handleResult = function($elem, result) {
 
-      if (!result && typeof this.options.error === 'function') {
+    if (!result && typeof this.options.error === 'function') {
         this.options.error($elem);
-      } else if (result && typeof this.options.success === 'function') {
+    } else if (result && typeof this.options.success === 'function') {
         this.options.success($elem);
-      } else {
+    } else {
         // do nothing for now
-      }
+    }
 
-      if (this.index === this.$classname.length && typeof this.options.complete === "function") {
+    if (this.index === this.$classname.length && typeof this.options.complete === "function") {
         this.options.complete(this.errors);
-      }
+    }
 
-      // some debugging with nice formating in Chrome
-      if (this.options.debug) {
+    // some debugging with nice formating in Chrome
+    if (this.options.debug) {
         var currDebug = {
-          tag: $elem[0].type || $elem[0].tagName,
-          name: $elem.attr('name'),
-          value: $elem.val(),
-          pass: result
+            tag: $elem[0].type || $elem[0].tagName,
+            name: $elem.attr('name'),
+            value: $elem.val(),
+            pass: result
         };
 
         this.resultTable.push(currDebug);
         if (this.index === this.$classname.length) {
-          console.table(this.resultTable);
-          console.log(this.errors + " errors found");
+            console.table(this.resultTable);
+            console.log(this.errors + " errors found");
         }
-      }
+    }
 
-    };
+};
 
-  };
-
-}();
 
 module.exports = Validate;
 },{"jquery":1}]},{},[2])

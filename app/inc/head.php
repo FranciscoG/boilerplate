@@ -1,3 +1,14 @@
+<?php
+  $addBodyAttribs = "";
+  
+  if (!empty($bodyAttributes)) {
+   
+    foreach ($bodyAttributes as $key => $value) {
+      $addBodyAttribs .= $key . '="' . $value . '" ';
+    }
+  }
+
+?>
 <!doctype html>
 <html class="no-js">
     <head>
@@ -11,18 +22,11 @@
         <link rel="stylesheet" href="css/app.css">
         <script src="js/vendor/modernizr.custom.js"></script>
     </head>
-    <body data-route="home">
 
-        <div class="container">
-            <header></header>
-            
-            <div class="main">
-                
-            </div>
-            
-            <footer></footer>
-        </div>
+    <body <?=$addBodyAttribs;?>>
+      <div class="container">
+        <header>
+          
+        </header>
 
-        <script src="js/site.js"></script>
-    </body>
-</html>
+          <div class="main">

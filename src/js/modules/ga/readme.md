@@ -14,15 +14,17 @@ usage:
 2. in your main js you call the init function with the following parameters:
 
 ```javascript
-    /*
-     * @param  {string}  UA           the UA account number
-     * @param  {string}  [version]    "ga.js" or "analytics.js" , optional, which version of the analytics library to use. optional, defaults to "ga.js"
-     * @param  {Boolean} [hasDynamic] true if there are dynamically generated links in the site, defaults to false
-     */
+var ga_event = require('../js/modules/ga/ga_event.js');
+
+/*
+ * @param  {string}  UA           the UA account number
+ * @param  {string}  [version]    "ga.js" or "analytics.js" , optional, which version of the analytics library to use. optional, defaults to "ga.js"
+ * @param  {Boolean} [hasDynamic] true if there are dynamically generated links in the site, defaults to false
+ */
     
-GA_event.init('UA-XXXXXXX-XX', "analytics.js");
-GA_event.init('UA-XXXXXXX-XX', "ga.js");
-GA_event.init('UA-XXXXXXX-XX', "ga.js", true); 
+ga_event('UA-XXXXXXX-XX', "analytics.js");
+ga_event('UA-XXXXXXX-XX', "ga.js");
+ga_event('UA-XXXXXXX-XX', "ga.js", true); 
 ```
 
 ####in your HTML:  

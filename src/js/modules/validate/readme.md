@@ -13,7 +13,9 @@ Test it out here: <a href="http://jsfiddle.net/87rdD/10/">http://jsfiddle.net/87
 ####in your JS:
 
 ```javascript
-var validate = new Validator({
+var Validate = require('../js/modules/validate/validate.js');
+
+var validator = new Validate({
   classname: "js-validate",         // this is optional, it will default to "js-validate" if not set
   error: function($elem){},         // run this function on each error, handle your UI here.
   success: function($elem){},       // run this function on each success, handle your UI here
