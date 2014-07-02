@@ -1,5 +1,5 @@
             
-            </div> <?php // end div.main ?>
+            </main>
             
             <footer>
               

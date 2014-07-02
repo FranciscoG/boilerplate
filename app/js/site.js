@@ -10317,6 +10317,7 @@ var Validate = require('../js/modules/validate/validate.js');
 
 var MySite = new TinyRouter({
 
+    // everything in the "universal" function get executed first on every page
     universal: function() {
         plugins();
 
@@ -10326,6 +10327,7 @@ var MySite = new TinyRouter({
         ga_event('UA-XXXXXXX-XX', "ga.js");
     },
 
+    // the following functions are run on the respective pages with the matching data-route attribue in the body tag
     home: function() {
         // do something on the home page
         console.log('this is the home page');
@@ -10499,7 +10501,7 @@ var addOldGAlibrary = function(UA) {
     ga.type = 'text/javascript';
     ga.async = true;
     ga.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0];
+    var s = document.getElementsByTagName('script')[1];
     s.parentNode.insertBefore(ga, s);
 
 };
@@ -10513,7 +10515,7 @@ var addNewGALibrary = function(UA) {
             (i[r].q = i[r].q || []).push(arguments);
         }, i[r].l = 1 * new Date();
         a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0];
+        m = s.getElementsByTagName(o)[1];
         a.async = 1;
         a.src = g;
         m.parentNode.insertBefore(a, m);

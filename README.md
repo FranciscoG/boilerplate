@@ -1,7 +1,7 @@
 boilerplate
 ===========
 
-This is my front-end boilerplate that will probably evolve depending on where I work or what projects I'm working on.  
+What started as my front-end boilerplate is now turning into a more general Web Start boilerplate using PHP to handle things like includes.
 
 Right now it is very specific to where I work and needs to support back to IE8.
 

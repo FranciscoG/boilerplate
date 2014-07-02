@@ -6,6 +6,7 @@ var Validate = require('../js/modules/validate/validate.js');
 
 var MySite = new TinyRouter({
 
+    // everything in the "universal" function get executed first on every page
     universal: function() {
         plugins();
 
@@ -15,6 +16,7 @@ var MySite = new TinyRouter({
         ga_event('UA-XXXXXXX-XX', "ga.js");
     },
 
+    // the following functions are run on the respective pages with the matching data-route attribue in the body tag
     home: function() {
         // do something on the home page
         console.log('this is the home page');
