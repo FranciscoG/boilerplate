@@ -10327,7 +10327,9 @@ var MySite = new TinyRouter({
   home: function() {
     // do something on the home page
     console.log('this is the home page');
+  },
 
+  form_test: function() {
     $('#submit').click(function(e) {
       e.preventDefault();
 
