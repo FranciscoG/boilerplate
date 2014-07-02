@@ -2,13 +2,27 @@ var gulp = require('gulp');
 
 /**********************************************
  * Stylus to CSS
- * 1. compile to /app/css
+ * 1. Generate Style Guide
+ * 2. compile to /app/css
  */
 
 var stylus = require('gulp-stylus');
 var nib = require('nib');
+var gulpkss = require('gulp-kss');
 
-gulp.task('stylus', function() {
+gulp.task('styleguide', function() {
+  gulp.src('./src/stylus/**/**/*.styl')
+    .pipe(gulpkss())
+    .pipe(gulp.dest('./app/styleguide/'));
+
+  gulp.src('./src/stylus/app.styl')
+    .pipe(stylus({
+      use: [nib()]
+    }))
+    .pipe(gulp.dest('./app/styleguide/'));
+});
+
+gulp.task('stylus', ['styleguide'], function() {
   gulp.src('./src/stylus/app.styl')
     .pipe(stylus({
       use: [nib()]

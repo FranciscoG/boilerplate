@@ -10317,47 +10317,46 @@ var Validate = require('../js/modules/validate/validate.js');
 
 var MySite = new TinyRouter({
 
-    // everything in the "universal" function get executed first on every page
-    universal: function() {
-        plugins();
+  // everything in the "universal" function get executed first on every page
+  universal: function() {
+    plugins();
 
-        $('html').removeClass('no-js');
+    $('html').removeClass('no-js');
 
-        // load classic GA library
-        ga_event('UA-XXXXXXX-XX', "ga.js");
-    },
+    // load classic GA library and attach GA tracking click events
+    ga_event('UA-XXXXXXX-XX', "ga.js");
+  },
 
-    // the following functions are run on the respective pages with the matching data-route attribue in the body tag
-    home: function() {
-        // do something on the home page
-        console.log('this is the home page');
-    },
+  // the remaining functions are run on the respective pages with the matching data-route attribue in the body tag
+  home: function() {
+    console.log('this is the home page');
+  },
 
-    testpage: function() {
+  testpage: function() {
 
-        $('#submit').click(function(e) {
-            e.preventDefault();
+    $('#submit').click(function(e) {
+      e.preventDefault();
 
-            var validateme = new Validate({
-                classname: "js-validate",
-                error: function($elem) {
-                    $elem.siblings('.error').show();
-                },
-                success: function($elem) {
-                    $elem.siblings('.error').hide();
-                },
-                complete: function(errors) {
-                    if (errors === 0) {
-                        $('#complete').hide();
-                    } else {
-                        $('#complete').show();
-                    }
-                },
-                debug: true
-            });
-        });
+      var validateme = new Validate({
+        classname: "js-validate",
+        error: function($elem) {
+          $elem.siblings('.error').show();
+        },
+        success: function($elem) {
+          $elem.siblings('.error').hide();
+        },
+        complete: function(errors) {
+          if (errors === 0) {
+            $('#complete').hide();
+          } else {
+            $('#complete').show();
+          }
+        },
+        debug: true
+      });
+    });
 
-    }
+  }
 
 });
 },{"../js/modules/TinyRouter.js":3,"../js/modules/ga/ga_event.js":4,"../js/modules/plugins.js":5,"../js/modules/validate/validate.js":6,"jquery":1}],3:[function(require,module,exports){
