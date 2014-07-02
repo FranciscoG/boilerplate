@@ -1,62 +1,63 @@
 var gulp = require('gulp');
-var concat = require('gulp-concat');
-var stylus = require('gulp-stylus');
-var nib = require('nib');
-var jshint = require('gulp-jshint');
-var stylish = require('jshint-stylish');
-
 
 /**********************************************
- * Stylus to CSS 
- * 1. compile to /css
+ * Stylus to CSS
+ * 1. compile to /app/css
  */
 
-gulp.task('stylus', function () {
+var stylus = require('gulp-stylus');
+var nib = require('nib');
+
+gulp.task('stylus', function() {
   gulp.src('./src/stylus/app.styl')
-    .pipe(stylus({use: [nib()]}))
+    .pipe(stylus({
+      use: [nib()]
+    }))
     .pipe(gulp.dest('./app/css'));
 });
 
-
 /**********************************************
- * Javascript 
+ * Javascript
  * 1. jshint modules
  * 2. jshint main.js
- * 3. concat to /js
+ * 3. bundle to /app/js using Browserify to handle dependencies
  */
 
-var all_scripts = [
-  './src/js/libs/*.js',
-  './src/js/modules/**/*.js',
-  './src/js/modules/*.js',
-  './src/js/main.js'
-];
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
+var source = require('vinyl-source-stream');
+var browserify = require('browserify');
 
 gulp.task('lint_modules', function() {
-   return gulp.src('./src/js/modules/**/*.js')
+  return gulp.src('./src/js/modules/**/*.js')
     .pipe(jshint('./src/js/.jshintrc'))
     .pipe(jshint.reporter(stylish));
 });
 
 gulp.task('lint_main', function() {
-   return gulp.src('./src/js/main.js')
+  return gulp.src('./src/js/app.js')
     .pipe(jshint('./src/js/.jshintrc'))
     .pipe(jshint.reporter(stylish));
 });
 
-gulp.task('js', ['lint_modules', 'lint_main'], function() {
-  gulp.src(all_scripts)
-    .pipe(concat('site.js'))
-    .pipe(gulp.dest('./app/js'));
+gulp.task('browserify', ['lint_modules', 'lint_main'], function() {
+  var bundleStream = browserify('./src/js/app.js').bundle().pipe(source('site.js'));
+  return bundleStream.pipe(gulp.dest('./app/js'));
 });
 
-gulp.task('watch', function(){
-    gulp.watch('./src/js/**/**/*.js', ['js']);
-    gulp.watch('./src/stylus/**/*.styl', ['stylus']);
+/**********************************************
+ * Watch
+ */
+
+gulp.task('watch', function() {
+  gulp.watch('./src/js/**/**/*.js', ['browserify']);
+  gulp.watch('./src/stylus/**/*.styl', ['stylus']);
 });
 
-gulp.task('default', ['js','stylus']);
+/**********************************************
+ * Default and specific tasks
+ */
 
-// just in case I only want to build one at a time
-gulp.task('build-js', ['js']);
+gulp.task('default', ['browserify', 'stylus']);
+gulp.task('build-js', ['browserify']);
 gulp.task('build-css', ['stylus']);

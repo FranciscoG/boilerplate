@@ -14,41 +14,34 @@
  * http://www.paulirish.com/2009/markup-based-unobtrusive-comprehensive-dom-ready-execution/
  */
 
-var TinyRouter = (function() {
 
-  function Router(info) {
-    this.methods = info;
-    this.process();
+module.exports = function(info) {
+  this.methods = info;
+
+  var route = document.body.getAttribute('data-route'); //supporting back to IE8, why not
+
+  if (route === null) {
+    return false; // no route so we exit quietly
   }
 
-  Router.prototype.process = function() {
-    var route = document.body.getAttribute('data-route'); //supporting back to IE8, why not
+  if (route === 'universal') {
+    throw new Error("universal is a reserved name, don't use it");
+  }
 
-    if (route === null) {
-      return false; // no route so we exit quietly
-    }
+  if (typeof this.methods.universal !== 'undefined') {
+    // always run what's in 'universal' before other routes
+    this.methods.universal();
+  }
 
-    if (route === 'universal') {
-      throw new Error("universal is a reserved name, don't use it");
-    }
+  var execRoute = this.methods[route];
+  if (typeof execRoute === 'function') {
+    execRoute();
+  }
 
-    if (typeof this.methods.universal !== 'undefined') {
-      // always run what's in 'universal' before other routes
-      this.methods.universal();
-    }
+};
 
-    var execRoute = this.methods[route];
-    if (typeof execRoute === 'function') {
-      execRoute();
-    }
-  };
-
-  return Router;
-
-})();
-
-/* 
-* How to use:
+/** 
+How to use:
 
 Step 1:  on your page you add a 'data-route' attribute to your body tag like this:
         

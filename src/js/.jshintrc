@@ -14,9 +14,8 @@
   "indent": 2,
   "expr" : true,
   "globals": {
-    "$" : true,
-    "TinyRouter" : true,
     "_gaq" : true,
-    "ga" : true
+    "ga" : true,
+    "define" : true
   }
 }
