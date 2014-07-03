@@ -49,10 +49,6 @@
     margin:0 0 0 5px;
 }
 
-.cf {
-    clearfix();
-}
-
 
 .nobr {
     white-space: nowrap;
@@ -116,16 +112,23 @@
  *    that receive the `clearfix` class.
  * 2. The use of `table` rather than `block` is only necessary if using
  *    `:before` to contain the top-margins of child elements.
- */
+ 
 
-.clearfix:before,
-.clearfix:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
-}
+   Nib includes a Clearfix mixin but leaving this hear for info
 
-.clearfix:after {
-    clear: both;
+  .clearfix:before,
+  .clearfix:after {
+1     content: " ";   
+2     display: table; 
+  }
+
+  .clearfix:after {
+      clear: both;
+  }
+*/
+
+.cf {
+    clearfix();
 }
 
 /* ==========================================================================

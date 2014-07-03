@@ -90,3 +90,4 @@ gulp.task('watch', function() {
 gulp.task('default', ['jade', 'browserify', 'stylus']);
 gulp.task('build-js', ['browserify']);
 gulp.task('build-css', ['stylus']);
+gulp.task('build-jade', ['jade']);
