@@ -82,8 +82,8 @@ gulp.task('browserify', ['lint_modules', 'lint_main'], function() {
  */
 
 gulp.task('watch', function() {
-  gulp.watch('./src/js/**/**/*.js', ['browserify']);
-  gulp.watch('./src/stylus/**/*.styl', ['stylus']);
+  gulp.watch('./src/js/**/**/*.js', ['browserify']); // will jshint first
+  gulp.watch('./src/stylus/**/*.styl', ['stylus']); // will generate styleguide first
   gulp.watch('./views/*.jade', ['jade']);
 });
 

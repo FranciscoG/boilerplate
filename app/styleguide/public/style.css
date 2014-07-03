@@ -259,7 +259,28 @@ input[type="text"] {
 .input-box:after {
   clear: both;
 }
-.input-box.inline label,
+.input-box.inline label {
+  *zoom: 1;
+  float: left;
+  clear: none;
+  text-align: inherit;
+  padding-left: 0;
+  padding-right: 0;
+  width: 31.3333333333333%;
+  margin-left: 0%;
+  margin-right: 3%;
+}
+.input-box.inline label:before,
+.input-box.inline label:after {
+  content: '';
+  display: table;
+}
+.input-box.inline label:after {
+  clear: both;
+}
+.input-box.inline label:last-child {
+  margin-right: 0%;
+}
 .input-box.inline input {
   *zoom: 1;
   float: left;
@@ -267,22 +288,18 @@ input[type="text"] {
   text-align: inherit;
   padding-left: 0;
   padding-right: 0;
-  width: 48.5%;
+  width: 65.6666666666667%;
   margin-left: 0%;
   margin-right: 3%;
 }
-.input-box.inline label:before,
 .input-box.inline input:before,
-.input-box.inline label:after,
 .input-box.inline input:after {
   content: '';
   display: table;
 }
-.input-box.inline label:after,
 .input-box.inline input:after {
   clear: both;
 }
-.input-box.inline label:last-child,
 .input-box.inline input:last-child {
   margin-right: 0%;
 }
