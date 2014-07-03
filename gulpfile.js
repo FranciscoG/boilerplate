@@ -80,6 +80,7 @@ gulp.task('browserify', ['lint_modules', 'lint_main'], function() {
 gulp.task('watch', function() {
   gulp.watch('./src/js/**/**/*.js', ['browserify']);
   gulp.watch('./src/stylus/**/*.styl', ['stylus']);
+  gulp.watch('./views/*.jade', ['jade']);
 });
 
 /**********************************************
