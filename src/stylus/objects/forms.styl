@@ -1,0 +1,57 @@
+// Text Inputs
+//
+// When a text input is used on its own it will have 100% width.  Using default styles for :focus
+//
+// Markup:
+// <input type="text" name="name">
+//
+// Styleguide 1.1.
+
+input[type="text"]
+  width: 100%
+  font-size: 1em
+  padding: 5px
+
+
+// Label/Text Pairs
+//
+// There are 2 versions.  One where the label is on top of the form elment and one where its floated left
+//
+// Markup:
+// <div class="input-box {$modifiers}">
+//   <label for="name">Name</label>
+//   <input type="text" name="name">
+// </div>
+//
+// .inline     - Label and Input are on the same line
+// .invalid    - To be used when the input has failed a validation check
+// .valid      - To be used when the input has passed a validation check
+//
+// Styleguide 1.2.
+
+.input-box
+  clearfix()
+
+  &.inline
+    label, input 
+      col(1/2)
+
+.valid
+  label
+    color: green
+  input
+    border-color: #6e5
+    background-color: #dfd
+
+.invalid
+  label
+    color: red
+  input
+    border-color: #e65
+    background-color: #fdd
+
+
+
+.error
+  color: $error
+  display: none

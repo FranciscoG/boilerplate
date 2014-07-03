@@ -23,17 +23,21 @@ gulp.task('jade', function() {
 var stylus = require('gulp-stylus');
 var nib = require('nib');
 var gulpkss = require('gulp-kss');
+var rename = require("gulp-rename");
 
 gulp.task('styleguide', function() {
   gulp.src('./src/stylus/**/**/*.styl')
-    .pipe(gulpkss())
+    .pipe(gulpkss({
+      overview: './app/styleguide/overview.md'
+    }))
     .pipe(gulp.dest('./app/styleguide/'));
 
   gulp.src('./src/stylus/app.styl')
     .pipe(stylus({
       use: [nib()]
     }))
-    .pipe(gulp.dest('./app/styleguide/'));
+    .pipe(rename('style.css'))
+    .pipe(gulp.dest('./app/styleguide/public/'));
 });
 
 gulp.task('stylus', ['styleguide'], function() {
