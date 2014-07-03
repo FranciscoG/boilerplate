@@ -1,0 +1,38 @@
+doctype html
+html(class="no-js", lang="en")
+  block vars
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    title=  pageTitle? pageTitle : "Boilerplate"
+    if metaKeywords
+      meta(name="keywords", content= metaKeywords)
+    if metaDesc
+      meta(name="description", content= metaDesc)
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+
+    link(rel="stylesheet", href="css/app.css")
+    | <!--[if lt IE 9]><script src="js/vendor/selectivizr-min.js"></script><![endif]-->
+    script(src="js/vendor/modernizr.custom.js")
+
+  body&attributes(bodyAttributes? bodyAttributes : {})
+    header.container
+        a(href="index.html")
+          h1.logo.
+            Web Starter Boilerplate
+    nav.container
+      ul
+        li
+          a(href="#hello").
+            Hello
+        li
+          a(href="testpage.html").
+            Module Testpage
+        li
+          a(href="styleguide/index.html").
+            Style Guide
+    main.container
+      block content
+    footer.container
+    script(src="js/site.js")
+

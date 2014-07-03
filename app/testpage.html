@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Test Page | Boilerplate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/app.css"><!--[if lt IE 9]><script src="js/vendor/selectivizr-min.js"></script><![endif]-->
+    <script src="js/vendor/modernizr.custom.js"></script>
+  </head>
+  <body data-route="testpage" id="testpage">
+    <header class="container"><a href="index.html">
+        <h1 class="logo">Web Starter Boilerplate</h1></a></header>
+    <nav class="container">
+      <ul>
+        <li><a href="#hello">Hello</a></li>
+        <li><a href="testpage.html">Module Testpage</a></li>
+        <li><a href="styleguide/index.html">Style Guide</a></li>
+      </ul>
+    </nav>
+    <main class="container"><a href="#" data-ga-category="testCat" data-ga-action="testAction" data-ga-label="testLabel" data-ga-value="testValue" class="ga_event">GA Test link 1</a><a href="#" data-ga-category="testCat2" data-ga-action="testAction2" data-ga-label="testLabel2" data-ga-value="testValue2" class="ga_event">
+        GA Test link 2
+        </a>
+      <form id="testForm">
+        <div class="input-box">
+          <label for="name">Name</label>
+          <input type="text" name="name" data-validate-type="name" class="js-validate"><span class="error">error!</span>
+        </div>
+        <div class="input-box">
+          <label for="phone">Phone</label>
+          <input type="text" name="phone" data-validate-type="phone" class="js-validate"><span class="error">error!</span>
+        </div>
+        <div class="input-box">
+          <label for="email">Email</label>
+          <input type="text" name="email" data-validate-type="email" class="js-validate"><span class="error">error!</span>
+        </div>
+        <div class="input-box">
+          <label for="zip">Zip</label>
+          <input type="text" name="zip" data-validate-type="zip" maxlength="5" class="js-validate"><span class="error">error!</span>
+        </div>
+        <div class="input-box">
+          <label for="zip4">zip4</label>
+          <input type="text" name="zip4" data-validate-type="zip4" class="js-validate"><span class="error">error!</span>
+        </div>
+        <div class="input-box">
+          <label for="state">State</label>
+          <input type="text" name="state" data-validate-type="state" maxlength="2" class="js-validate"><span class="error">error!</span>
+        </div>
+        <div class="input-box">
+          <label for="numbers">Numbers Only</label>
+          <input type="text" name="numbers" data-validate-type="num" maxlength="4" class="js-validate"><span class="error">error!</span>
+        </div>
+        <div class="textarea-box">
+          <label for="story">Enter text</label>
+          <textarea name="story" class="js-validate"></textarea><span class="error">error!</span>
+        </div>
+        <div class="radio-box">
+          <p>Pick one</p>
+          <label>
+            <input type="radio" name="test1" class="js-validate">test 1
+          </label>
+          <label>
+            <input type="radio" name="test1" class="js-validate">test 2
+          </label><span class="error">error!</span>
+        </div>
+        <div class="radio-box">
+          <p>Pick another one</p>
+          <label>
+            <input type="radio" name="test2" class="js-validate">test 3
+          </label>
+          <label>
+            <input type="radio" name="test2" class="js-validate">test 4
+          </label><span class="error">error!</span>
+        </div>
+        <div class="select-box">
+          <select class="js-validate">
+            <option value="none" selected="selected" data-validate-type="ignore">select</option>
+            <option value="1">Something 1</option>
+            <option value="2">Something 2</option>
+          </select><span class="error">error!</span>
+        </div>
+        <div class="check-box">
+          <label for="consent">One checkbox</label>
+          <input type="checkbox" name="consent" class="js-validate">I agree<span class="error">error!</span>
+        </div>
+        <p>Multiple Checkboxes with the same name</p>
+        <div class="check-box">
+          <p>where did you hear about this program , please choose at <strong>least</strong></p>
+          <label>
+            <input type="checkbox" data-validate-checkbox="min2" name="sources" class="js-validate">Online
+          </label>
+          <label>
+            <input type="checkbox" name="sources">TV
+          </label>
+          <label>
+            <input type="checkbox" name="sources">Radio
+          </label>
+          <label>
+            <input type="checkbox" name="sources">Friend
+          </label>
+          <label>
+            <input type="checkbox" name="sources">Other
+          </label><span class="error">error!</span>
+        </div>
+        <div class="check-box">
+          <p>where did you hear about this program , please choose at <strong>most</strong> 2</p>
+          <label>
+            <input type="checkbox" data-validate-checkbox="max2" name="places" class="js-validate">Online
+          </label>
+          <label>
+            <input type="checkbox" name="places">TV
+          </label>
+          <label>
+            <input type="checkbox" name="places">Radio
+          </label>
+          <label>
+            <input type="checkbox" name="places">Friend
+          </label>
+          <label>
+            <input type="checkbox" name="places">Other
+          </label><span class="error">error!</span>
+        </div>
+        <input type="submit" id="submit">
+        <p id="complete" class="error">Please fix your errors and try again</p>
+      </form>
+    </main>
+    <footer class="container"></footer>
+    <script src="js/site.js"></script>
+  </body>
+</html>

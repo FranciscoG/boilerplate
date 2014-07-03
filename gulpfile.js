@@ -1,6 +1,20 @@
 var gulp = require('gulp');
 
 /**********************************************
+ * Compile Jade Templates
+ */
+
+var jade = require('gulp-jade');
+gulp.task('jade', function() {
+
+  gulp.src('./views/*.jade')
+    .pipe(jade({
+      pretty: true
+    }))
+    .pipe(gulp.dest('./app/'));
+});
+
+/**********************************************
  * Stylus to CSS
  * 1. Generate Style Guide
  * 2. compile to /app/css
@@ -72,6 +86,6 @@ gulp.task('watch', function() {
  * Default and specific tasks
  */
 
-gulp.task('default', ['browserify', 'stylus']);
+gulp.task('default', ['jade', 'browserify', 'stylus']);
 gulp.task('build-js', ['browserify']);
 gulp.task('build-css', ['stylus']);
