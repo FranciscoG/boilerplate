@@ -22,70 +22,72 @@
         GA Test link 2
         </a>
       <form id="testForm">
-        <div class="input-box">
+        <div class="formbox input-box inline">
           <label for="name">Name</label>
-          <input type="text" name="name" data-validate-type="name" class="js-validate"><span class="error">error!</span>
-        </div>
-        <div class="input-box">
+          <input type="text" name="name" data-validate-type="name" class="js-validate">
+        </div><span class="error">error!</span>
+        <div class="formbox input-box inline">
           <label for="phone">Phone</label>
-          <input type="text" name="phone" data-validate-type="phone" class="js-validate"><span class="error">error!</span>
-        </div>
-        <div class="input-box">
+          <input type="text" name="phone" data-validate-type="phone" class="js-validate">
+        </div><span class="error">error!</span>
+        <div class="formbox input-box inline">
           <label for="email">Email</label>
-          <input type="text" name="email" data-validate-type="email" class="js-validate"><span class="error">error!</span>
-        </div>
-        <div class="input-box">
+          <input type="text" name="email" data-validate-type="email" class="js-validate">
+        </div><span class="error">error!</span>
+        <div class="formbox input-box inline">
           <label for="zip">Zip</label>
-          <input type="text" name="zip" data-validate-type="zip" maxlength="5" class="js-validate"><span class="error">error!</span>
-        </div>
-        <div class="input-box">
+          <input type="text" name="zip" data-validate-type="zip" maxlength="5" class="js-validate">
+        </div><span class="error">error!</span>
+        <div class="formbox input-box inline">
           <label for="zip4">zip4</label>
-          <input type="text" name="zip4" data-validate-type="zip4" class="js-validate"><span class="error">error!</span>
-        </div>
-        <div class="input-box">
+          <input type="text" name="zip4" data-validate-type="zip4" class="js-validate">
+        </div><span class="error">error!</span>
+        <div class="formbox input-box inline">
           <label for="state">State</label>
-          <input type="text" name="state" data-validate-type="state" maxlength="2" class="js-validate"><span class="error">error!</span>
-        </div>
-        <div class="input-box">
+          <input type="text" name="state" data-validate-type="state" maxlength="2" class="js-validate">
+        </div><span class="error">error!</span>
+        <div class="formbox input-box inline">
           <label for="numbers">Numbers Only</label>
-          <input type="text" name="numbers" data-validate-type="num" maxlength="4" class="js-validate"><span class="error">error!</span>
-        </div>
-        <div class="textarea-box">
+          <input type="text" name="numbers" data-validate-type="num" maxlength="4" class="js-validate">
+        </div><span class="error">error!</span>
+        <div class="formbox textarea-box inline">
           <label for="story">Enter text</label>
-          <textarea name="story" class="js-validate"></textarea><span class="error">error!</span>
-        </div>
-        <div class="radio-box">
-          <p>Pick one</p>
+          <textarea name="story" class="js-validate"></textarea>
+        </div><span class="error">error!</span>
+        <p>Pick one</p>
+        <div class="formbox radio-box inline">
           <label>
             <input type="radio" name="test1" class="js-validate">test 1
           </label>
           <label>
             <input type="radio" name="test1" class="js-validate">test 2
-          </label><span class="error">error!</span>
-        </div>
-        <div class="radio-box">
-          <p>Pick another one</p>
+          </label>
+        </div><span class="error">error!</span>
+        <p>Pick another one</p>
+        <div class="formbox radio-box inline">
           <label>
             <input type="radio" name="test2" class="js-validate">test 3
           </label>
           <label>
             <input type="radio" name="test2" class="js-validate">test 4
-          </label><span class="error">error!</span>
-        </div>
-        <div class="select-box">
-          <select class="js-validate">
+          </label>
+        </div><span class="error">error!</span>
+        <div class="formbox select-box">
+          <select name="select" class="js-validate">
             <option value="none" selected="selected" data-validate-type="ignore">select</option>
             <option value="1">Something 1</option>
             <option value="2">Something 2</option>
-          </select><span class="error">error!</span>
-        </div>
-        <div class="check-box">
-          <label for="consent">One checkbox</label>
-          <input type="checkbox" name="consent" class="js-validate">I agree<span class="error">error!</span>
-        </div>
-        <p>Multiple Checkboxes with the same name</p>
-        <div class="check-box">
-          <p>where did you hear about this program , please choose at <strong>least</strong></p>
+          </select>
+        </div><span class="error">error!</span>
+        <h3>Validate one checkbox</h3>
+        <div class="formbox check-box">
+          <label>
+            <input type="checkbox" name="consent" class="js-validate">I agree
+          </label>
+        </div><span class="error">error!</span>
+        <h3>Validate Multiple Checkboxes</h3>
+        <p>please choose at <strong>least</strong> 2</p>
+        <div class="formbox check-box inline">
           <label>
             <input type="checkbox" data-validate-checkbox="min2" name="sources" class="js-validate">Online
           </label>
@@ -100,10 +102,10 @@
           </label>
           <label>
             <input type="checkbox" name="sources">Other
-          </label><span class="error">error!</span>
-        </div>
-        <div class="check-box">
-          <p>where did you hear about this program , please choose at <strong>most</strong> 2</p>
+          </label>
+        </div><span class="error">error!</span>
+        <p>Please choose at <strong>most</strong> 2</p>
+        <div class="formbox check-box inline">
           <label>
             <input type="checkbox" data-validate-checkbox="max2" name="places" class="js-validate">Online
           </label>
@@ -118,9 +120,9 @@
           </label>
           <label>
             <input type="checkbox" name="places">Other
-          </label><span class="error">error!</span>
-        </div>
-        <input type="submit" id="submit">
+          </label>
+        </div><span class="error">error!</span>
+        <input type="submit" id="submit" class="button">
         <p id="complete" class="error">Please fix your errors and try again</p>
       </form>
     </main>

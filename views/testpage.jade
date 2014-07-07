@@ -11,83 +11,84 @@ block content
     GA Test link 2
 
   form(id="testForm")
-    .input-box
+    .formbox.input-box.inline
       label(for="name") Name
       input(type="text", name="name", class="js-validate", data-validate-type="name") 
-      span.error error!
+    span.error error!
 
-    .input-box
+    .formbox.input-box.inline
       label(for="phone") Phone
       input(type="text", name="phone", class="js-validate", data-validate-type="phone")
-      span.error error!
+    span.error error!
       
-    .input-box
+    .formbox.input-box.inline
       label(for="email") Email
       input(type="text", name="email", class="js-validate", data-validate-type="email")
-      span.error error!
+    span.error error!
       
-    .input-box
+    .formbox.input-box.inline
       label(for="zip") Zip
       input(type="text", name="zip", class="js-validate", data-validate-type="zip", maxlength="5")
-      span.error error!
+    span.error error!
 
-    .input-box
+    .formbox.input-box.inline
       label(for="zip4") zip4
       input(type="text", name="zip4", class="js-validate", data-validate-type="zip4")
-      span.error error!
+    span.error error!
     
-    .input-box
+    .formbox.input-box.inline
       label(for="state") State
       input(type="text", name="state", class="js-validate", data-validate-type="state", maxlength="2")
-      span.error error!
+    span.error error!
     
-    .input-box
+    .formbox.input-box.inline
       label(for="numbers") Numbers Only
       input(type="text", name="numbers", class="js-validate", data-validate-type="num", maxlength="4")
-      span.error error!
+    span.error error!
     
-    .textarea-box
+    .formbox.textarea-box.inline
       label(for="story") Enter text
       textarea(name="story", class="js-validate")
-      span.error error!
+    span.error error!
 
-    .radio-box
-      p Pick one
+    p Pick one
+    .formbox.radio-box.inline
       label
         input(type="radio", name="test1", class="js-validate")
         | test 1
       label
         input(type="radio", name="test1", class="js-validate").
         | test 2
-      span.error error!
+    span.error error!
 
-    .radio-box
-      p Pick another one
+    p Pick another one
+    .formbox.radio-box.inline
       label
         input(type="radio", name="test2", class="js-validate") 
         | test 3
       label
         input(type="radio", name="test2", class="js-validate") 
         | test 4
-      span.error error!
+    span.error error!
 
-    .select-box
-      select.js-validate
+    .formbox.select-box
+      select.js-validate(name="select")
         option(value="none", selected="selected", data-validate-type="ignore") select
         option(value="1") Something 1
         option(value="2") Something 2
-      span.error error!
-      
-    .check-box
-      label(for="consent") One checkbox
-      input(type="checkbox", class="js-validate", name="consent") 
-      | I agree
-      span.error error!
-
-    p Multiple Checkboxes with the same name
+    span.error error!
     
-    .check-box
-      p where did you hear about this program , please choose at <strong>least</strong>
+    h3 Validate one checkbox
+    .formbox.check-box
+      label
+        input(type="checkbox", class="js-validate", name="consent")
+        | I agree
+    span.error error!
+
+    h3 Validate Multiple Checkboxes
+    
+    p please choose at <strong>least</strong> 2
+    .formbox.check-box.inline
       label
         input(type="checkbox", class="js-validate", data-validate-checkbox="min2", name="sources") 
         | Online
@@ -103,29 +104,28 @@ block content
       label
         input(type="checkbox", name="sources") 
         | Other
-      span.error error!
+    span.error error!
 
-
-    .check-box
-      p where did you hear about this program , please choose at <strong>most</strong> 2
+    p Please choose at <strong>most</strong> 2
+    .formbox.check-box.inline
       label
         input(type="checkbox", class="js-validate", data-validate-checkbox="max2", name="places") 
         | Online
       label
-        input(type="checkbox", name="places") 
+        input(type="checkbox", name="places")
         | TV
       label
-        input(type="checkbox", name="places") 
+        input(type="checkbox", name="places")
         | Radio
       label
-        input(type="checkbox", name="places") 
+        input(type="checkbox", name="places")
         | Friend
       label
-        input(type="checkbox", name="places") 
+        input(type="checkbox", name="places")
         | Other
-      span.error error!
+    span.error error!
 
       
-    input(type="submit", id="submit")
+    input.button(type="submit", id="submit")
     
     p(id="complete", class="error") Please fix your errors and try again

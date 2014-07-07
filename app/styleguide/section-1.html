@@ -81,7 +81,7 @@
             <h1 class="kss-title"><span class="kss-ref">1.2</span> - Label/Text Pairs</h1>
           
             
-                <div class="kss-box"><p>There are 2 versions.  One where the label is on top of the form elment and one where its floated left</p>
+                <div class="kss-box"><p>There are 2 versions.  One where the label is on top of the form elment and one where its floated left.  In variables.styl you can set whether forms inputs are inline with labels or on top</p>
 </div>
                 <table class="kss-mod-list">
                   <tr class="kss-mod-desc-group">
@@ -92,11 +92,12 @@
                     <td colspan="2"><div class="input-box {$modifiers}">
   <label for="name">Name</label>
   <input type="text" name="name">
-</div></td>
+</div>
+<span class="error">Error message goes here</span></td>
                   </tr>
                 
                   <tr class="kss-mod-desc-group">
-                    <td class="kss-mod-desc"><p>Label and Input are on the same line</p>
+                    <td class="kss-mod-desc"><p>Label and Input on same line</p>
 </td>
                     <td class="kss-mod-name"><p>.inline</p></td>
                   </tr>
@@ -104,7 +105,8 @@
                     <td colspan="2"><div class="input-box inline">
   <label for="name">Name</label>
   <input type="text" name="name">
-</div></td>
+</div>
+<span class="error">Error message goes here</span></td>
                   </tr>
                 
                   <tr class="kss-mod-desc-group">
@@ -116,7 +118,8 @@
                     <td colspan="2"><div class="input-box invalid">
   <label for="name">Name</label>
   <input type="text" name="name">
-</div></td>
+</div>
+<span class="error">Error message goes here</span></td>
                   </tr>
                 
                   <tr class="kss-mod-desc-group">
@@ -128,7 +131,8 @@
                     <td colspan="2"><div class="input-box valid">
   <label for="name">Name</label>
   <input type="text" name="name">
-</div></td>
+</div>
+<span class="error">Error message goes here</span></td>
                   </tr>
                 
                 </table>
@@ -136,7 +140,329 @@
                   <pre class="prettyprint lang-html">&lt;div class=&quot;input-box {$modifiers}&quot;&gt;
   &lt;label for=&quot;name&quot;&gt;Name&lt;/label&gt;
   &lt;input type=&quot;text&quot; name=&quot;name&quot;&gt;
-&lt;/div&gt;</pre>
+&lt;/div&gt;
+&lt;span class=&quot;error&quot;&gt;Error message goes here&lt;/span&gt;</pre>
+                </div>
+            
+          
+            </section>
+          
+        
+          
+           <section class="kss-depth-2">
+            <h1 class="kss-title"><span class="kss-ref">1.3</span> - Text Areas</h1>
+          
+            
+                <div class="kss-box"></div>
+                <table class="kss-mod-list">
+                  <tr class="kss-mod-desc-group">
+                    <td class="kss-mod-desc"><p>Default styling</p></td>
+                    <td class="kss-mod-name"></td>
+                  </tr>
+                  <tr class="kss-mod-example">
+                    <td colspan="2"><div class="textarea-box {$modifiers}">
+  <label for="info">Info</label>
+  <textarea name="info"></textarea>
+</div>
+<span class="error">Error message goes here</span></td>
+                  </tr>
+                
+                  <tr class="kss-mod-desc-group">
+                    <td class="kss-mod-desc"><p>Label and text area on same line</p>
+</td>
+                    <td class="kss-mod-name"><p>.inline</p></td>
+                  </tr>
+                  <tr class="kss-mod-example">
+                    <td colspan="2"><div class="textarea-box inline">
+  <label for="info">Info</label>
+  <textarea name="info"></textarea>
+</div>
+<span class="error">Error message goes here</span></td>
+                  </tr>
+                
+                  <tr class="kss-mod-desc-group">
+                    <td class="kss-mod-desc"><p>To be used when the input has failed a validation check</p>
+</td>
+                    <td class="kss-mod-name"><p>.invalid</p></td>
+                  </tr>
+                  <tr class="kss-mod-example">
+                    <td colspan="2"><div class="textarea-box invalid">
+  <label for="info">Info</label>
+  <textarea name="info"></textarea>
+</div>
+<span class="error">Error message goes here</span></td>
+                  </tr>
+                
+                  <tr class="kss-mod-desc-group">
+                    <td class="kss-mod-desc"><p>To be used when the input has passed a validation check</p>
+</td>
+                    <td class="kss-mod-name"><p>.valid</p></td>
+                  </tr>
+                  <tr class="kss-mod-example">
+                    <td colspan="2"><div class="textarea-box valid">
+  <label for="info">Info</label>
+  <textarea name="info"></textarea>
+</div>
+<span class="error">Error message goes here</span></td>
+                  </tr>
+                
+                </table>
+                <div class="kss-markup">
+                  <pre class="prettyprint lang-html">&lt;div class=&quot;textarea-box {$modifiers}&quot;&gt;
+  &lt;label for=&quot;info&quot;&gt;Info&lt;/label&gt;
+  &lt;textarea name=&quot;info&quot;&gt;&lt;/textarea&gt;
+&lt;/div&gt;
+&lt;span class=&quot;error&quot;&gt;Error message goes here&lt;/span&gt;</pre>
+                </div>
+            
+          
+            </section>
+          
+        
+          
+           <section class="kss-depth-2">
+            <h1 class="kss-title"><span class="kss-ref">1.4</span> - Radios</h1>
+          
+            
+                <div class="kss-box"></div>
+                <table class="kss-mod-list">
+                  <tr class="kss-mod-desc-group">
+                    <td class="kss-mod-desc"><p>Default styling</p></td>
+                    <td class="kss-mod-name"></td>
+                  </tr>
+                  <tr class="kss-mod-example">
+                    <td colspan="2"><div class="radio-box {$modifiers}">
+  <p>Choose One</p>
+  <label>
+    <input type="radio" name="radio_example" /> Choice 1
+  </label>
+  <label>
+    <input type="radio" name="radio_example" /> Choice 2
+  </label>
+</div>
+<span class="error">Error message goes here</span></td>
+                  </tr>
+                
+                  <tr class="kss-mod-desc-group">
+                    <td class="kss-mod-desc"><p>Radios are laid out in columns</p>
+</td>
+                    <td class="kss-mod-name"><p>.inline</p></td>
+                  </tr>
+                  <tr class="kss-mod-example">
+                    <td colspan="2"><div class="radio-box inline">
+  <p>Choose One</p>
+  <label>
+    <input type="radio" name="radio_example" /> Choice 1
+  </label>
+  <label>
+    <input type="radio" name="radio_example" /> Choice 2
+  </label>
+</div>
+<span class="error">Error message goes here</span></td>
+                  </tr>
+                
+                  <tr class="kss-mod-desc-group">
+                    <td class="kss-mod-desc"><p>To be used when the input has failed a validation check</p>
+</td>
+                    <td class="kss-mod-name"><p>.invalid</p></td>
+                  </tr>
+                  <tr class="kss-mod-example">
+                    <td colspan="2"><div class="radio-box invalid">
+  <p>Choose One</p>
+  <label>
+    <input type="radio" name="radio_example" /> Choice 1
+  </label>
+  <label>
+    <input type="radio" name="radio_example" /> Choice 2
+  </label>
+</div>
+<span class="error">Error message goes here</span></td>
+                  </tr>
+                
+                  <tr class="kss-mod-desc-group">
+                    <td class="kss-mod-desc"><p>To be used when the input has passed a validation check</p>
+</td>
+                    <td class="kss-mod-name"><p>.valid</p></td>
+                  </tr>
+                  <tr class="kss-mod-example">
+                    <td colspan="2"><div class="radio-box valid">
+  <p>Choose One</p>
+  <label>
+    <input type="radio" name="radio_example" /> Choice 1
+  </label>
+  <label>
+    <input type="radio" name="radio_example" /> Choice 2
+  </label>
+</div>
+<span class="error">Error message goes here</span></td>
+                  </tr>
+                
+                </table>
+                <div class="kss-markup">
+                  <pre class="prettyprint lang-html">&lt;div class=&quot;radio-box {$modifiers}&quot;&gt;
+  &lt;p&gt;Choose One&lt;/p&gt;
+  &lt;label&gt;
+    &lt;input type=&quot;radio&quot; name=&quot;radio_example&quot; /&gt; Choice 1
+  &lt;/label&gt;
+  &lt;label&gt;
+    &lt;input type=&quot;radio&quot; name=&quot;radio_example&quot; /&gt; Choice 2
+  &lt;/label&gt;
+&lt;/div&gt;
+&lt;span class=&quot;error&quot;&gt;Error message goes here&lt;/span&gt;</pre>
+                </div>
+            
+          
+            </section>
+          
+        
+          
+           <section class="kss-depth-2">
+            <h1 class="kss-title"><span class="kss-ref">1.5</span> - Selects</h1>
+          
+            
+                <div class="kss-box"><p>Selects pretty much get default styling</p>
+</div>
+                <table class="kss-mod-list">
+                  <tr class="kss-mod-desc-group">
+                    <td class="kss-mod-desc"><p>Default styling</p></td>
+                    <td class="kss-mod-name"></td>
+                  </tr>
+                  <tr class="kss-mod-example">
+                    <td colspan="2"> <select>
+   <option selected="selected">select one</option>
+   <option value="1">Some Choice 1</option>
+   <option value="2">Some Choise 2</option>
+ </select></td>
+                  </tr>
+                
+                </table>
+                <div class="kss-markup">
+                  <pre class="prettyprint lang-html"> &lt;select&gt;
+   &lt;option selected=&quot;selected&quot;&gt;select one&lt;/option&gt;
+   &lt;option value=&quot;1&quot;&gt;Some Choice 1&lt;/option&gt;
+   &lt;option value=&quot;2&quot;&gt;Some Choise 2&lt;/option&gt;
+ &lt;/select&gt;</pre>
+                </div>
+            
+          
+            </section>
+          
+        
+          
+           <section class="kss-depth-2">
+            <h1 class="kss-title"><span class="kss-ref">1.6</span> - Checkboxes</h1>
+          
+            
+                <div class="kss-box"></div>
+                <table class="kss-mod-list">
+                  <tr class="kss-mod-desc-group">
+                    <td class="kss-mod-desc"><p>Default styling</p></td>
+                    <td class="kss-mod-name"></td>
+                  </tr>
+                  <tr class="kss-mod-example">
+                    <td colspan="2"><div class="check-box {$modifiers}">
+  <label>
+    <input type="checkbox" name="example" /> Choice 1
+  </label>
+  <label>
+    <input type="checkbox" name="example" /> Choice 2
+  </label>
+  <label>
+    <input type="checkbox" name="example" /> Choice 3
+  </label>
+  <label>
+    <input type="checkbox" name="example" /> Choice 4
+  </label>
+</div>
+<span class="error">Error message goes here</span></td>
+                  </tr>
+                
+                  <tr class="kss-mod-desc-group">
+                    <td class="kss-mod-desc"><p>Checkboxes are laid out in columns</p>
+</td>
+                    <td class="kss-mod-name"><p>.inline</p></td>
+                  </tr>
+                  <tr class="kss-mod-example">
+                    <td colspan="2"><div class="check-box inline">
+  <label>
+    <input type="checkbox" name="example" /> Choice 1
+  </label>
+  <label>
+    <input type="checkbox" name="example" /> Choice 2
+  </label>
+  <label>
+    <input type="checkbox" name="example" /> Choice 3
+  </label>
+  <label>
+    <input type="checkbox" name="example" /> Choice 4
+  </label>
+</div>
+<span class="error">Error message goes here</span></td>
+                  </tr>
+                
+                  <tr class="kss-mod-desc-group">
+                    <td class="kss-mod-desc"><p>To be used when the input has failed a validation check</p>
+</td>
+                    <td class="kss-mod-name"><p>.invalid</p></td>
+                  </tr>
+                  <tr class="kss-mod-example">
+                    <td colspan="2"><div class="check-box invalid">
+  <label>
+    <input type="checkbox" name="example" /> Choice 1
+  </label>
+  <label>
+    <input type="checkbox" name="example" /> Choice 2
+  </label>
+  <label>
+    <input type="checkbox" name="example" /> Choice 3
+  </label>
+  <label>
+    <input type="checkbox" name="example" /> Choice 4
+  </label>
+</div>
+<span class="error">Error message goes here</span></td>
+                  </tr>
+                
+                  <tr class="kss-mod-desc-group">
+                    <td class="kss-mod-desc"><p>To be used when the input has passed a validation check</p>
+</td>
+                    <td class="kss-mod-name"><p>.valid</p></td>
+                  </tr>
+                  <tr class="kss-mod-example">
+                    <td colspan="2"><div class="check-box valid">
+  <label>
+    <input type="checkbox" name="example" /> Choice 1
+  </label>
+  <label>
+    <input type="checkbox" name="example" /> Choice 2
+  </label>
+  <label>
+    <input type="checkbox" name="example" /> Choice 3
+  </label>
+  <label>
+    <input type="checkbox" name="example" /> Choice 4
+  </label>
+</div>
+<span class="error">Error message goes here</span></td>
+                  </tr>
+                
+                </table>
+                <div class="kss-markup">
+                  <pre class="prettyprint lang-html">&lt;div class=&quot;check-box {$modifiers}&quot;&gt;
+  &lt;label&gt;
+    &lt;input type=&quot;checkbox&quot; name=&quot;example&quot; /&gt; Choice 1
+  &lt;/label&gt;
+  &lt;label&gt;
+    &lt;input type=&quot;checkbox&quot; name=&quot;example&quot; /&gt; Choice 2
+  &lt;/label&gt;
+  &lt;label&gt;
+    &lt;input type=&quot;checkbox&quot; name=&quot;example&quot; /&gt; Choice 3
+  &lt;/label&gt;
+  &lt;label&gt;
+    &lt;input type=&quot;checkbox&quot; name=&quot;example&quot; /&gt; Choice 4
+  &lt;/label&gt;
+&lt;/div&gt;
+&lt;span class=&quot;error&quot;&gt;Error message goes here&lt;/span&gt;</pre>
                 </div>
             
           

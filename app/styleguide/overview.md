@@ -1,6 +1,3 @@
 # This is the living Style Guide
 
-bla bla bla
-bla
-
-bla bla
+if you see ```{$modifiers}``` anywhere you can disregard it.  It's for styleguide generation purpose only

@@ -10340,10 +10340,10 @@ var MySite = new TinyRouter({
       var validateme = new Validate({
         classname: "js-validate",
         error: function($elem) {
-          $elem.siblings('.error').show();
+          $elem.closest('.formbox').addClass('invalid').next('.error').show();
         },
         success: function($elem) {
-          $elem.siblings('.error').hide();
+          $elem.closest('.formbox').removeClass('invalid').addClass('valid').next('.error').hide();
         },
         complete: function(errors) {
           if (errors === 0) {
