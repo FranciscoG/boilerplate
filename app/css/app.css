@@ -555,6 +555,12 @@ input[type="checkbox"] {
 .nobr {
   white-space: nowrap;
 }
+.ir {
+  border: 0;
+  font: 0/0 a;
+  text-shadow: none;
+  color: transparent;
+}
 .hidden {
   display: none !important;
   visibility: hidden;

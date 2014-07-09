@@ -1,6 +1,6 @@
 var ga_event = require('../js/modules/ga/ga_event.js');
 var TinyRouter = require('../js/modules/TinyRouter.js');
-var plugins = require('../js/modules/plugins.js');
+var utils = require('../js/modules/plugins.js');
 var $ = require('jquery');
 var Validate = require('../js/modules/validate/validate.js');
 
@@ -8,9 +8,7 @@ var MySite = new TinyRouter({
 
   // everything in the "universal" function get executed first on every page
   universal: function() {
-    plugins();
-
-    $('html').removeClass('no-js');
+    utils.noConsole();
 
     // load classic GA library and attach GA tracking click events
     ga_event('UA-XXXXXXX-XX', "ga.js");
