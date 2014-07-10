@@ -10321,8 +10321,6 @@ var MySite = new TinyRouter({
   universal: function() {
     utils.noConsole();
 
-    $('html').removeClass('no-js');
-
     // load classic GA library and attach GA tracking click events
     ga_event('UA-XXXXXXX-XX', "ga.js");
   },
