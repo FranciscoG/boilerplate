@@ -1,0 +1,137 @@
+/*! ==========================================================================
+    Nav Styles
+   ========================================================================== */
+
+// *********************************************************************
+// app bar holds the hamburger and  mobile logo and is in the header
+.app-bar {
+  display: block;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 2;
+}
+
+
+.app-bar-container {
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+}
+
+// the hamburger
+.app-bar button {
+  width: auto;
+  height: 60px;
+  background-image: none;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app-bar button img {
+  margin 0
+}
+
+.app-bar button:focus {
+  outline: 0;
+}
+
+button.menu img {
+  height:24px;
+  width: 24px;
+}
+
+.app-bar .imgblock .img {
+  margin-left $mobile-left-align
+  img {
+    margin-left 0
+  }
+}
+
+// *********************************************************************
+// left nav section
+
+nav {
+  background #AFEEEE url(../img/nav-shadow.png) repeat-y right
+  padding-left: 20px
+}
+
+nav ul {
+  list-style-type: none
+}
+
+// This is the main Nav on the left
+$menu-shift-margin = 20px
+
+
+.navdrawer-container {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: $nav-width;
+  height: 100%;
+  -webkit-transform: translate(($nav-width * -1), 0);
+  transform: translate(($nav-width * -1), 0);
+  overflow hidden
+  overflow-y auto
+  +ie(8) {
+    overflow hidden
+    overflow-y hidden
+  }
+}
+
+// when nav is open, push app-bar and main content to the right
+
+.app-bar.open,
+main.open {
+    transform: translateX($nav-width);
+ }
+
+.navdrawer-container.open {
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+
+.app-bar, .navdrawer-container, main {
+  transition: -webkit-transform 0.2s ease-out;
+  transition: transform 0.2s ease-out;
+}
+
+
+
+/** Larger Screens - desktops and landscape tablets **/
++ screen-at-least($desktop) {
+
+  $menu-shift-margin = 20px 
+
+  .app-bar {
+    position: relative;
+    display none !important
+  }
+
+  nav {
+    display: block;
+  }
+
+  .navdrawer-container {
+    height: auto;
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+    transition: none;
+    margin-top: 0;
+  }
+
+  main {
+    min-height: initial;
+  }
+
+  body {
+    overflow-y: scroll;
+  }
+
+}

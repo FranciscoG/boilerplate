@@ -1,6 +1,12 @@
 // put all variables here
 
 // colors
+
+// black, whites, grays
+$white = #ffffff
+$black = #000000
+$gray = #808080
+
 $red = #FF0000
 $red_light = #e65
 $red_lighter = #fdd
@@ -10,7 +16,7 @@ $green_light = #6e5
 $green_lighter = #dfd
 
 
-$bgcolor-container = "something"
+$base-font-color = $black
 
 // forms
 $color-error-text = $red
@@ -21,3 +27,34 @@ $color-valid-text = $green
 $color-valid-border = $green_light
 $color-valid-bg = $green_lighter
 
+// font-families
+$myriadPro = "Myriad Pro", $arial
+$arial = "Arial", sans-serif;
+$arialBlack = "Arial Black", $arial
+$base-font-family = $arial
+
+// font sizes
+base-font-size = 16
+base-line-height = base-font-size * 1.4
+
+
+// widths
+$container-width = 1000px
+$container-padding-left = 18px
+$container-padding = 0 0 10px $container-padding-left
+$nav-width = 231px
+
+$gutter = 45px
+$main-content-width = $container-width -  $nav-width - $gutter
+
+
+// media queries
+$desktop = 1000px
+$tablet = 768px
+$mobile = 640px
+$mobile-small = 360px
+
+// in mobile first design we start with the smallest screen which is 320px
+// so technically this variable here will never ever be used because it's the base
+// width we design for
+$mobile-smallest = 320px

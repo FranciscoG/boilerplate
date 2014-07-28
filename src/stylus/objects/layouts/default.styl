@@ -1,2 +1,53 @@
-.container
-  center(1000px)
+/*! ==========================================================================
+   General Layout Styles
+   ========================================================================== */
+
+body {
+  
+}
+
+.container {
+  clearfix()
+}
+
+nav {
+  float left
+  width $nav-width
+  display block
+  margin 0
+  margin-right $gutter
+}
+
+// mobile first
+main {
+  width 100%
+  padding 0 7%
+  min-height: 100%
+  height: 1023px
+}
+.container {
+  background-color $white
+  padding-right 0
+  padding-left 0
+}
+
++screen-at-least($tablet) {
+  main {
+    float left
+    margin-left 0
+  }
+}
+
+// changes for desktop
++screen-at-least($desktop) {
+  main {
+    width $main-content-width
+    padding-left 0
+    margin-left $nav-width + $gutter
+    padding-right: 55px + $gutter
+  }
+  .container {
+    padding $container-padding
+    center($container-width)
+  }
+}

@@ -20,7 +20,7 @@
   "homepage": "https://github.com/FranciscoG/boilerplate",
   "devDependencies": {
     "browserify": "^4.2.0",
-    "gulp": "^3.8.0",
+    "gulp": "^3.8.6",
     "gulp-jade": "^0.6.1",
     "gulp-jshint": "^1.6.3",
     "gulp-kss": "0.0.2",

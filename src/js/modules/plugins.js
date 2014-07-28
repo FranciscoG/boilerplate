@@ -1,5 +1,3 @@
-var $ = require('jquery');
-
 module.exports = {
   /****************************************************************
    * Avoid `console` errors in browsers that lack a console.
@@ -51,9 +49,15 @@ module.exports = {
    *  scroll to element via its id
    *  used to fix issues on some older browsers cause they suck
    */
-  scrollToAnchor: function(aid) {
-    $('html,body').animate({
+  scrollToAnchor: function(aid, options) {
+    var opts = options || {};
+    opts.duration = opts.duration || '500';
+    opts.easing = opts.easing || 'swing';
+
+    var properties = {
       scrollTop: $(aid).offset().top
-    }, 'fast');
+    };
+
+    $('html,body').animate(properties, opts);
   }
 };

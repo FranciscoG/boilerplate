@@ -325,6 +325,8 @@ nav ul {
   transform: translate(-231px, 0);
   overflow: hidden;
   overflow-y: auto;
+  overflow: hidden;
+  overflow-y: hidden;
 }
 .app-bar.open,
 main.open {
@@ -356,35 +358,34 @@ main {
   -ms-transition: -ms-transform 0.2s ease-out;
   transition: transform 0.2s ease-out;
 }
-@media all and (min-width: 1000px) {
-  .app-bar {
-    position: relative;
-    display: none !important;
-  }
-  nav {
-    display: block;
-  }
-  .navdrawer-container {
-    height: auto;
-    -webkit-transform: translate(0, 0);
-    -webkit-transform: translate(0, 0);
-    -moz-transform: translate(0, 0);
-    -o-transform: translate(0, 0);
-    -ms-transform: translate(0, 0);
-    transform: translate(0, 0);
-    -webkit-transition: none;
-    -moz-transition: none;
-    -o-transition: none;
-    -ms-transition: none;
-    transition: none;
-    margin-top: 0;
-  }
-  main {
-    min-height: initial;
-  }
-  body {
-    overflow-y: scroll;
-  }
+/* for IE8  */
+.app-bar {
+  position: relative;
+  display: none !important;
+}
+nav {
+  display: block;
+}
+.navdrawer-container {
+  height: auto;
+  -webkit-transform: translate(0, 0);
+  -webkit-transform: translate(0, 0);
+  -moz-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  -ms-transition: none;
+  transition: none;
+  margin-top: 0;
+}
+main {
+  min-height: initial;
+}
+body {
+  overflow-y: scroll;
 }
 /* ==========================================================================
     Footer Styles
@@ -677,39 +678,37 @@ main {
   padding-right: 0;
   padding-left: 0;
 }
-@media all and (min-width: 768px) {
-  main {
-    float: left;
-    margin-left: 0;
-  }
+/* for IE8  */
+main {
+  float: left;
+  margin-left: 0;
 }
-@media all and (min-width: 1000px) {
-  main {
-    width: 724px;
-    padding-left: 0;
-    margin-left: 276px;
-    padding-right: 100px;
-  }
-  .container {
-    padding: 0 0 10px 18px;
-    *zoom: 1;
-    width: auto;
-    max-width: 1000px;
-    float: none;
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
-    padding-left: 0;
-    padding-right: 0;
-  }
-  .container:before,
-  .container:after {
-    content: '';
-    display: table;
-  }
-  .container:after {
-    clear: both;
-  }
+/* for IE8  */
+main {
+  width: 724px;
+  padding-left: 0;
+  margin-left: 276px;
+  padding-right: 100px;
+}
+.container {
+  padding: 0 0 10px 18px;
+  *zoom: 1;
+  width: auto;
+  max-width: 1000px;
+  float: none;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+.container:before,
+.container:after {
+  content: '';
+  display: table;
+}
+.container:after {
+  clear: both;
 }
 /* ==========================================================================
    Home Page Styles

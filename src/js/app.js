@@ -1,8 +1,8 @@
 var ga_event = require('../js/modules/ga/ga_event.js');
 var TinyRouter = require('../js/modules/TinyRouter.js');
 var utils = require('../js/modules/plugins.js');
-var $ = require('jquery');
 var Validate = require('../js/modules/validate/validate.js');
+var NavDrawer = require('../js/modules/navDrawer.js');
 
 var MySite = new TinyRouter({
 
@@ -12,6 +12,11 @@ var MySite = new TinyRouter({
 
     // load classic GA library and attach GA tracking click events
     ga_event('UA-XXXXXXX-XX', "ga.js");
+
+    if (document.addEventListener) {
+      var startNav = new NavDrawer();
+      startNav.init();
+    }
   },
 
   // the remaining functions are run on the respective pages with the matching data-route attribue in the body tag

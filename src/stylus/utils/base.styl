@@ -1,27 +1,25 @@
-/*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
-
-/*
- * What follows is the result of much research on cross-browser styling.
- * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
- * Kroc Camen, and the H5BP dev community and team.
- */
-
-/* ==========================================================================
+/*! ==========================================================================
    Base styles: opinionated defaults
    ========================================================================== */
 
+html,body {
+  color: #222;
+  font-size: base-font-size px
+  line-height: 1.4;
+}
+
 html {
-    color: #222;
-    font-size: 1em;
-    line-height: 1.4;
+  -webkit-font-smoothing antialiased
+}
+
+body {
+  font-family: $base-font-family
+  color $base-font-color
 }
 
 *,
 *:before,
-*:after,
-*::before,
-*::after {
-  *behavior: url("js/vendor/boxsizing.htc");
+*:after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -87,3 +85,6 @@ textarea {
     resize: vertical;
 }
 
+/*! ==========================================================================
+    Sitewide Font styles
+   ========================================================================== */

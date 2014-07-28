@@ -20,7 +20,6 @@
 .imgblock .img {
     float:left;
     display:block;
-    margin:0 5px 0 0;
 }
 
 .imgblock .img img {
@@ -47,6 +46,19 @@
 .imgblock .ext {
     float: right;
     margin:0 0 0 5px;
+}
+
+// add the class "stack" so that it does not float in mobile
++screen-at-most($tablet - 1) {
+  .imgblock.stack {
+    .img {
+      float none
+    }
+    .content {
+      display block
+      width auto
+    }
+  }
 }
 
 

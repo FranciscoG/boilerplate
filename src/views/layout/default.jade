@@ -1,0 +1,30 @@
+doctype html
+html(class="no-js", lang="en")
+  block vars
+  include ../includes/head
+
+  body&attributes(bodyAttributes? bodyAttributes : {})
+    include ../includes/header
+    
+    .container
+      include ../includes/nav
+    
+      main
+        block content
+    
+        include ../includes/footer
+    
+    script(src="js/vendor/jquery.1-11-0.min.js")
+    script(src="js/site.js")
+
+    <!--[if IE 8]>
+    <script type="text/javascript" src="js/vendor/PIE_IE678.js"></script>
+    script(type="text/javascript").
+      $(function() {
+          if (window.PIE) {
+              $('.has-shadow').each(function() {
+                  PIE.attach(this);
+              });
+          }
+      });
+    <![endif]-->

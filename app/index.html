@@ -13,24 +13,46 @@
         var html = d.getElementsByTagName("html")[0];
             html.className = "";
       })(document);
-    </script>
-    <link rel="stylesheet" href="css/app.css"><!--[if lt IE 9]><script src="js/vendor/selectivizr-min.js"></script><![endif]-->
+      
+    </script><!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="css/app.css"><!--<![endif]-->
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="css/app-ie8.css"><![endif]-->
+    <!--[if lt IE 9]><script src="js/vendor/selectivizr-min.js"></script><![endif]-->
     <script src="js/vendor/modernizr.custom.js"></script>
   </head>
   <body data-route="home" id="home">
-    <header class="container"><a href="index.html">
-        <h1 class="logo">Web Starter Boilerplate</h1></a></header>
-    <nav class="container">
-      <ul>
-        <li><a href="#hello">Hello</a></li>
-        <li><a href="testpage.html">Module Testpage</a></li>
-        <li><a href="styleguide/index.html">Style Guide</a></li>
-      </ul>
-    </nav>
-    <main class="container">
-      <h1>All hail the home page</h1>
-    </main>
-    <footer class="container"></footer>
-    <script src="js/site.js"></script>
+    <header class="app-bar">
+      <div class="app-bar-container imgblock">
+        <button class="menu img"><img src="img/icons/hamburger.svg"></button>
+        <div class="content"></div>
+      </div>
+    </header>
+    <div class="container">
+      <nav class="navdrawer-container"><a href="index.html">
+          <h1 class="logo">Boilerplate</h1></a>
+        <ul>
+          <li><a href="#hello">Hello</a></li>
+          <li><a href="testpage.html">Module Testpage</a></li>
+          <li><a href="styleguide/index.html">Style Guide</a></li>
+        </ul>
+      </nav>
+      <main>
+        <h1>All hail the home page</h1>
+        <footer class="container"></footer>
+      </main>
+    </div>
+    <script src="js/vendor/jquery.1-11-0.min.js"></script>
+    <script src="js/site.js"></script><!--[if IE 8]>
+    <script type="text/javascript" src="js/vendor/PIE_IE678.js"></script>
+    <script type="text/javascript">
+      $(function() {
+          if (window.PIE) {
+              $('.has-shadow').each(function() {
+                  PIE.attach(this);
+              });
+          }
+      });
+    </script><![endif]-->
   </body>
 </html>
