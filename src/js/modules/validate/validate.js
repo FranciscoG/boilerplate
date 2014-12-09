@@ -1,13 +1,13 @@
-var defaults = {
-  classname: "js-validate",
-  debug: false
-};
-
 function Validate(options) {
   if (typeof options !== "object") {
     console.warn('Validator: options not defined');
     return false;
   }
+
+  var defaults = {
+    classname: "js-validate",
+    debug: false
+  };
 
   options.classname = options.classname || defaults.classname;
   options.success = options.success || null;
@@ -42,8 +42,10 @@ function Validate(options) {
 }
 
 Validate.prototype.handleInput = function($input) {
+  // new html5 inputs that default to "text" in older browsers
+  var _alsoTextInputs = ['text', 'tel', 'email'];
 
-  if ($input[0].type !== "text") {
+  if (_alsoTextInputs.indexOf($input[0].type) < 0) {
     this.handleTheRest($input, true);
   } else {
     var valType = $input.attr('data-validate-type');
@@ -90,7 +92,6 @@ Validate.prototype.handleTheRest = function($elem, fromInput) {
       } else {
         isValid = $elem.is(':checked');
       }
-
       break;
     case "radio":
       nameGroup = $elem.attr('name');
@@ -98,6 +99,9 @@ Validate.prototype.handleTheRest = function($elem, fromInput) {
       break;
     case "textarea":
       isValid = (!$.trim($elem.val())) ? false : true;
+      break;
+    case "file":
+      isValid = (!$elem.val()) ? false : true;
       break;
     default:
       console.warn('Validator: ' + tag + ' element is not supported');
@@ -146,21 +150,38 @@ Validate.prototype.validateText = function(type, val) {
       case "num":
         validate_result = /^\d+$/.test(_val);
         break;
+      case "req":
+        // basic test to see if input has any value at all
+        validate_result = /.+/i.test(_val);
+        break;
+      case "date-full":
+        // date FORMAT validation only! XX/XX/XXXX 
+        // not a very strict regex because 99/99/9999 validates
+        validate_result = /\d{2}\/\d{2}\/\d{4}/i.test(_val);
+        break;
+      case "date-short":
+        // date FORMAT validation only! XX/XX 
+        // not a very strict regex because 99/99 validates
+        validate_result = /^\d{2}\/\d{2}$/i.test(_val);
+        break;
       case "state":
         // source: https://www.owasp.org/index.php/Input_Validation_Cheat_Sheet#White_List_Regular_Expression_Examples
         validate_result = /^(AA|AE|AP|AL|AK|AS|AZ|AR|CA|CO|CT|DE|DC|FM|FL|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MH|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|MP|OH|OK|OR|PW|PA|PR|RI|SC|SD|TN|TX|UT|VT|VI|VA|WA|WV|WI|WY)$/.test(val);
         break;
       default:
-        console.warn('Validator: the data-validate-type you are using is not supported');
+        console.warn('Validator: the data-validate-type you are using is not supported, defaulting to basic testing if input has any value');
+        validate_result = /.+/i.test(_val);
         break;
     }
 
   }
 
+  // adding up the negative validations
   if (!validate_result) {
     this.errors += 1;
   }
 
+  // returns bool
   return validate_result;
 };
 
@@ -168,11 +189,11 @@ Validate.prototype.handleResult = function($elem, result) {
 
   if (!result && typeof this.options.error === 'function') {
     this.options.error($elem);
-  } else if (result && typeof this.options.success === 'function') {
-    this.options.success($elem);
-  } else {
-    // do nothing for now
   }
+
+  if (result && typeof this.options.success === 'function') {
+    this.options.success($elem);
+  } 
 
   if (this.index === this.$classname.length && typeof this.options.complete === "function") {
     this.options.complete(this.errors);

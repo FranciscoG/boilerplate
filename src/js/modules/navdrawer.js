@@ -3,6 +3,21 @@
  * Borrowed from the Google Web Starter Kit
  */
 
+// because classList doesn't work in IE9, I have to manually create this 
+// I don't want to use a polyfill because it adds too many lines of code that I don't need
+var removeClass = function(elem, cls) {
+  var cn = elem.className;
+  elem.className = cn.replace(cls, "");
+};
+
+var toggleClass = function(elem, cls) {
+  var cn = elem.className;
+  if (cn.indexOf(cls) >= 0) {
+    elem.className = cn.replace(cls, "");
+  } else {
+    elem.className += " " + cls;
+  }
+};
 
 var MobileNav = (function() {
 
@@ -13,15 +28,15 @@ var MobileNav = (function() {
   var main = querySelector('main');
 
   var closeMenu = function() {
-    appbarElement.classList.remove('open');
-    navdrawerContainer.classList.remove('open');
-    main.classList.remove('open');
+    removeClass(appbarElement, "open");
+    removeClass(navdrawerContainer, "open");
+    removeClass(main, "open");
   };
 
   var toggleMenu = function() {
-    appbarElement.classList.toggle('open');
-    navdrawerContainer.classList.toggle('open');
-    main.classList.toggle('open');
+    toggleClass(appbarElement, "open");
+    toggleClass(navdrawerContainer, "open");
+    toggleClass(main, "open");
   };
 
   var init = function() {
