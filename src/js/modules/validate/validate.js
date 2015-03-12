@@ -1,3 +1,70 @@
+// Production steps of ECMA-262, Edition 5, 15.4.4.14
+// Reference: http://es5.github.io/#x15.4.4.14
+if (!Array.prototype.indexOf) {
+  Array.prototype.indexOf = function(searchElement, fromIndex) {
+
+    var k;
+
+    // 1. Let O be the result of calling ToObject passing
+    //    the this value as the argument.
+    if (this == null) {
+      throw new TypeError('"this" is null or not defined');
+    }
+
+    var O = Object(this);
+
+    // 2. Let lenValue be the result of calling the Get
+    //    internal method of O with the argument "length".
+    // 3. Let len be ToUint32(lenValue).
+    var len = O.length >>> 0;
+
+    // 4. If len is 0, return -1.
+    if (len === 0) {
+      return -1;
+    }
+
+    // 5. If argument fromIndex was passed let n be
+    //    ToInteger(fromIndex); else let n be 0.
+    var n = +fromIndex || 0;
+
+    if (Math.abs(n) === Infinity) {
+      n = 0;
+    }
+
+    // 6. If n >= len, return -1.
+    if (n >= len) {
+      return -1;
+    }
+
+    // 7. If n >= 0, then Let k be n.
+    // 8. Else, n<0, Let k be len - abs(n).
+    //    If k is less than 0, then let k be 0.
+    k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
+
+    // 9. Repeat, while k < len
+    while (k < len) {
+      var kValue;
+      // a. Let Pk be ToString(k).
+      //   This is implicit for LHS operands of the in operator
+      // b. Let kPresent be the result of calling the
+      //    HasProperty internal method of O with argument Pk.
+      //   This step can be combined with c
+      // c. If kPresent is true, then
+      //    i.  Let elementK be the result of calling the Get
+      //        internal method of O with the argument ToString(k).
+      //   ii.  Let same be the result of applying the
+      //        Strict Equality Comparison Algorithm to
+      //        searchElement and elementK.
+      //  iii.  If same is true, return k.
+      if (k in O && O[k] === searchElement) {
+        return k;
+      }
+      k++;
+    }
+    return -1;
+  };
+}
+
 function Validate(options) {
   if (typeof options !== "object") {
     console.warn('Validator: options not defined');
@@ -92,6 +159,7 @@ Validate.prototype.handleTheRest = function($elem, fromInput) {
       } else {
         isValid = $elem.is(':checked');
       }
+
       break;
     case "radio":
       nameGroup = $elem.attr('name');
@@ -115,6 +183,38 @@ Validate.prototype.handleTheRest = function($elem, fromInput) {
   this.handleResult($elem, isValid);
 };
 
+function valDate(str, isShort) {
+  var _short = isShort || false;
+
+  // first we test for XX/XX/XXXX or XX/XX format
+  if (!_short && !/\d{2}\/\d{2}\/\d{4}/i.test(str)) {
+    return false;
+  }
+  if (_short && !/\d{2}\/\d{2}/i.test(str)) {
+    return false;
+  }
+
+  // next we check each part
+  var _s = str.split("/");
+  var _month = parseInt(_s[0],10);
+  var _day = parseInt(_s[1],10);
+
+  if (_month === 0 || _month > 12) {
+    return false;
+  }
+  
+  // account for February
+  if (_month === 2 && _day > 29) {
+    return false;
+  }
+
+  if (_day === 0 || _day > 31) {
+    return false;
+  }
+  
+  return true;
+}
+
 Validate.prototype.validateText = function(type, val) {
   var _type = type || false;
   var _val = val || "";
@@ -135,7 +235,7 @@ Validate.prototype.validateText = function(type, val) {
         validate_result = /[a-zA-Z\d''-'\s]+/.test(_val);
         break;
       case "phone":
-        validate_result = /\(?\d{3}\)?-? *\d{3}-? *-?\d{4}/.test(_val);
+        validate_result = /(\(\d{3}\))?[\d\-\.\s]{7,}/.test(_val);
         break;
       case "email":
         validate_result = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(_val);
@@ -150,38 +250,38 @@ Validate.prototype.validateText = function(type, val) {
       case "num":
         validate_result = /^\d+$/.test(_val);
         break;
+      case "time":
+        // allows:  ##  and ##:##  
+        validate_result = /^\d{1,2}(:\d{2})?$/.test(_val);
+        break;
       case "req":
-        // basic test to see if input has any value at all
         validate_result = /.+/i.test(_val);
         break;
       case "date-full":
-        // date FORMAT validation only! XX/XX/XXXX 
+        // this only validates numbers in this format MM/DD/YYYY 
         // not a very strict regex because 99/99/9999 validates
-        validate_result = /\d{2}\/\d{2}\/\d{4}/i.test(_val);
+        validate_result = valDate(_val);
         break;
       case "date-short":
-        // date FORMAT validation only! XX/XX 
-        // not a very strict regex because 99/99 validates
-        validate_result = /^\d{2}\/\d{2}$/i.test(_val);
+        // this only validates numbers in this format MM/DD/YYYY 
+        // not a very strict regex because 99/99/9999 validates
+        validate_result = valDate(_val, true);
         break;
       case "state":
         // source: https://www.owasp.org/index.php/Input_Validation_Cheat_Sheet#White_List_Regular_Expression_Examples
         validate_result = /^(AA|AE|AP|AL|AK|AS|AZ|AR|CA|CO|CT|DE|DC|FM|FL|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MH|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|MP|OH|OK|OR|PW|PA|PR|RI|SC|SD|TN|TX|UT|VT|VI|VA|WA|WV|WI|WY)$/.test(val);
         break;
       default:
-        console.warn('Validator: the data-validate-type you are using is not supported, defaulting to basic testing if input has any value');
-        validate_result = /.+/i.test(_val);
+        console.warn('Validator: the data-validate-type you are using is not supported');
         break;
     }
 
   }
 
-  // adding up the negative validations
   if (!validate_result) {
     this.errors += 1;
   }
 
-  // returns bool
   return validate_result;
 };
 
@@ -189,7 +289,7 @@ Validate.prototype.handleResult = function($elem, result) {
 
   if (!result && typeof this.options.error === 'function') {
     this.options.error($elem);
-  }
+  } 
 
   if (result && typeof this.options.success === 'function') {
     this.options.success($elem);
@@ -210,7 +310,9 @@ Validate.prototype.handleResult = function($elem, result) {
 
     this.resultTable.push(currDebug);
     if (this.index === this.$classname.length) {
-      console.table(this.resultTable);
+      if (console.table) {
+        console.table(this.resultTable);
+      }
       console.log(this.errors + " errors found");
     }
   }
