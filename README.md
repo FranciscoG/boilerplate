@@ -1,3 +1,5 @@
+## This is old and retired
+
 boilerplate
 ===========
 
@@ -10,7 +12,6 @@ contains:
  - [Stylus](http://learnboost.github.io/stylus/) css preprocessing
  - [normalize.css](http://necolas.github.io/normalize.css/) instead of a CSS reset
  - [nib](http://visionmedia.github.io/nib/) - Stylus mixin library
- - jQuery 1.11.1
  - Modernizr
  - The beginnings of [Atomic Design](http://blog.groupbuddies.com/posts/32-our-css-sass-project-architecture-and-styleguide) for CSS architecture  
  
